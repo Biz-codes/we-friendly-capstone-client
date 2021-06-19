@@ -5,6 +5,7 @@ import config from "../config";
 import TokenService from "../services/token-service";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SearchBus from "./SearchBus"
 
 class Businesses extends Component {
   constructor(props) {
@@ -70,7 +71,7 @@ class Businesses extends Component {
       <div className="businesses">
         <Nav />
         <div className="search">
-          Search form will go here.
+          <SearchBus />
         </div>
         <div className="results">
           <h2>Results</h2>

@@ -6,12 +6,12 @@ import TokenService from "../services/token-service";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-class Tools extends Component {
+class Reviews extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toolsByUserId: [],
-      tools: [],
+      businesses: [],
+      reviews: [],
     };
   }
 
@@ -23,111 +23,82 @@ class Tools extends Component {
     if (!TokenService.hasAuthToken()) {
       window.location = "/";
     }
-    let myToolsUrl = `${config.API_ENDPOINT}/tools/my-tools/${currentUser}`;
 
-    fetch(myToolsUrl)
-      .then((tools) => tools.json())
-      .then((tools) => {
-        return tools.sort((a, b) => {
+    let businessesUrl = `${config.API_ENDPOINT}/businesses`
+
+    fetch(businessesUrl)
+      .then((businesses) => businesses.json())
+      .then((businesses) => {
+        return businesses.sort((a, b) => {
           let result = 0;
-          if (a.tool_name > b.tool_name) return 1;
-          if (a.tool_name < b.tool_name) return -1;
+          if (a.name > b.name) return 1;
+          if (a.name < b.name) return -1;
           return result;
         });
       })
-      .then((tools) => {
+      .then((businesses) => {
         this.setState({
-          toolsByUserId: tools,
+          businesses: businesses,
+        });
+      })
+
+      .catch((error) => this.setState({ error }));
+  
+
+    let reviewsUrl = `${config.API_ENDPOINT}/reviews`;
+
+    fetch(reviewsUrl)
+      .then((reviews) => reviews.json())
+      .then((reviews) => {
+        return reviews.sort((a, b) => {
+          let result = 0;
+          if (a.date_modified > b.date_modified) return 1;
+          if (a.date_modified < b.date_modified) return -1;
+          return result;
+        });
+      })
+      .then((reviews) => {
+        this.setState({
+          reviews: reviews,
         });
       })
 
       .catch((error) => this.setState({ error }));
   }
 
-  deleteTool(event) {
-    event.preventDefault();
-
-    const data = {};
-
-    const formData = new FormData(event.target);
-
-    for (let value of formData) {
-      data[value[0]] = value[1];
-    }
-
-    // console.log(data);
-
-    let { tool_id } = data;
-
-    fetch(`${config.API_ENDPOINT}/tools/${tool_id}`, {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json",
-      },
-    }).then((response) => {
-      window.location = `/tools`;
-    });
-  }
+  
 
   render() {
-    const showTools = this.state.toolsByUserId.map((tool, key) => {
+    const showReviews = this.state.reviews.map((review, key) => {
       return (
-        <div className="tool-item" key={key}>
-          <h3>{tool.tool_name}</h3>
-          <div className="specs">
-            <div className="tool-specs-column">
-              <p>
-                Details: <br /> {tool.details}
-              </p>
-            </div>
-            <div className="tool-specs-column">
-              <p>
-                Quantity: <br /> {tool.quantity}
-              </p>
-            </div>
-          </div>
-          <div className="buttons">
-            <NavLink to={{ pathname: "/edit-tool", tool_id: tool.id }}>
-              <button>Edit</button>
-            </NavLink>
-            <form className="delete" onSubmit={this.deleteTool}>
-              <input
-                type="hidden"
-                name="tool_id"
-                defaultValue={tool.id}
-              ></input>
-              <button type="submit" className="delete">
-                Delete
-              </button>
-            </form>
-          </div>
+        <div className="review-item" key={key}>
+        {/* I need to figure out how to take the business_id and use it to look up and display the corresponding name and zipcode. I also want to utilize this is sorting and filtering.*/}
+          <h3>{review.business_id.name}                        {review.rating}</h3>
+          <p>{review.friendly_for} -friendly        {review.business_id.zipcode}</p>
+          <p>{review.review}</p>
+          <p>{review.reviewer_id.username}                {review.date_modified}</p>
         </div>
       );
     });
 
     return (
-      <div className="tools">
+      <div className="reviews">
         <div className="nested-nav">
           <div className="page-heading">
-            <h2 className="page-title">My DIY Tools</h2>
+            <h2 className="page-title">Search for reviews</h2>
           </div>
           <div className="page-heading">
             <Nav />
           </div>
 
-          <div className="tool-items">{showTools}</div>
+          <div className="review-items">{showReviews}</div>
 
-          <div>
-            <button>
-              <NavLink to="/add-tool">
-                <FontAwesomeIcon icon={faPlus} /> Add tool
-              </NavLink>
-            </button>
-          </div>
+      
         </div>
+        <footer><a href='https://www.freepik.com/photos/background'>Background photo created by rawpixel.com - www.freepik.com</a></footer>
       </div>
     );
   }
 }
 
-export default Tools;
+export default Reviews;

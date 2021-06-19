@@ -191,7 +191,7 @@ export default class SignUp extends Component {
           {this.state.repeatPassword.touched && (
             <ValidationError message={this.validateRepeatPassword()} />
           )}
-
+            <div className="buttons">
           <NavLink to="/">
             <button>
               <FontAwesomeIcon icon={faStepBackward} /> Cancel
@@ -199,11 +199,12 @@ export default class SignUp extends Component {
           </NavLink>
           <button type="submit" disabled={this.state.submitButtonDisabled}>
             <FontAwesomeIcon icon={faDoorOpen} /> Submit
-          </button>
-          <input type="submit" className="hidden"></input>
+          </button> 
+          </div>
+          <NavLink to="/users/login">Already have an account?</NavLink>
         </form>
         <div>
-          <NavLink to="/users/login">Already have an account?</NavLink>
+          <input type="submit" className="hidden"></input>
         </div>
       </div>
     );

@@ -69,18 +69,18 @@ font-family: 'Catamaran', sans-serif;*/
 body {
   font-family: "Spectral", serif;
   font-size: 20px;
-  color: black;
+  color: #133457;
   font-weight: bold;
-  background-color: #ebe6e2;
+  background-color: #e2e2e2;
   text-align: center;
   line-height: 1.5;
   height: auto;
-  border: 3px solid #ebe6e2;
+  border: 3px solid #e2e2e2;
 }
 
 a {
   text-decoration: none;
-  color: black;
+  color: #133457;
 }
 
 a:hover {
@@ -95,7 +95,7 @@ h2,
 h3,
 h5,
 h6 {
-  font-family: "Caveat", cursive;
+  font-family: "Spectral", serif;
 }
 
 h4 {
@@ -105,12 +105,12 @@ h4 {
 input,
 select,
 button {
-  border: 2px solid black;
+  border: 2px solid #133457;
   padding: 10px 25px;
   margin: 5px;
   border-radius: 5px;
   color: black;
-  font-family: "Caveat", cursive;
+  font-family: "Spectral", serif;
   font-size: 100%;
 }
 
@@ -121,7 +121,8 @@ button {
 
 button {
   width: 125px;
-  background-color: #ebe6e2;
+  background-color: #478294;
+  font-size: 150%;
 }
 
 input {
@@ -132,13 +133,13 @@ button:hover {
   color: #bd1e0f;
 }
 
-button[type="submit"] {
-  border: 2px solid black;
+/* button[type="submit"] {
+  border: 2px solid #133457;
 }
 
 button[type="submit"]:hover {
   color: #bd1e0f;
-}
+} */
 
 label {
   display: block;
@@ -178,7 +179,7 @@ header {
 }
 
 header h1 {
-  color: #13498a;
+  color: #478294;
   margin-top: 10px;
   font-size: 200%;
 }
@@ -189,11 +190,6 @@ h2 {
 
 h3 {
   font-size: 150%;
-}
-
-h4 {
-  font-size: 150%;
-  color: #e64f0a;
 }
 
 .hidden {
@@ -224,12 +220,12 @@ div.landing {
 
 div.landing::before {
   content: "";
-  /* background-image: url(hero.jpg); */
+  background-image: url(hero.jpg);
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  opacity: 0.5;
+  opacity: 0.75;
   position: absolute;
   top: 0px;
   right: 0px;
@@ -239,6 +235,12 @@ div.landing::before {
 
 div.hook {
   position: relative;
+  background-color: #e2e2e2;
+  margin-bottom: 50%;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 div.landing-buttons {
@@ -249,24 +251,15 @@ div.landing-buttons {
   align-items: center;
 }
 
-button.demo-button {
-  background-color: #f0e981;
-  height: 15vh;
-  width: 200px;
-  padding: 50px;
-  font-size: 200%;
-  border-radius: 10px;
-  font-family: "Caveat", cursive;
-}
-
-button.landing-button {
-  background-color: #f0e981;
+button.signup-button, 
+button.demo-button,
+button.login-button {
+  background-color: #478294;
   height: 15vh;
   width: 200px;
   padding: 40px;
   font-size: 150%;
   border-radius: 10px;
-  font-family: "Caveat", cursive;
 }
 
 /* Dashboard, Supplies, Tools, and Projects pages */
@@ -283,8 +276,8 @@ button.landing-button {
   margin-bottom: 0;
   padding: 20px;
   /* border: 2px solid #13498a; */
-  background-color: #13498a;
-  color: #ebe6e2;
+  background-color: #478294;
+  color: #e2e2e2;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
@@ -299,11 +292,11 @@ button.landing-button {
 
 .nav-icons li {
   padding: 10px;
-  color: #ebe6e2;
+  color: #e2e2e2;
 }
 
 .nav-icons li a {
-  color: #ebe6e2;
+  color: #e2e2e2;
 }
 
 .nav-icons li a:hover {
@@ -311,27 +304,20 @@ button.landing-button {
   color: #f0e981;
 }
 
-/* Dashboard styles */
+/* Reviews styles */
 
-.inventory-buttons {
-  display: flex;
-  flex-direction: column;
-}
-
-div.supplies-entrance,
-div.tools-entrance,
-div.projects-entrance {
+.reviews {
   position: relative;
-  height: 15vh;
-  display: flex;
+  height: auto;
+  /* display: flex; */
   align-items: center;
   justify-content: center;
-  margin: 10px;
+  /* margin: 10px; */
 }
 
-div.supplies-entrance::before {
+.reviews {
   content: "";
-  /* background-image: url(sewing-supplies.jpg); */
+  background-image: url(rainbow-flags.jpg);
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -342,7 +328,6 @@ div.supplies-entrance::before {
   bottom: 0px;
   left: 0px;
   border-radius: 20px;
-  border: 2px solid #0ad1f0;
 }
 
 div.tools-entrance::before {
@@ -387,33 +372,13 @@ button.entrance-button {
   width: 175px;
 }
 
-/* Supplies, Tools and Projects styles */
-
-/* div.supplies,
-div.add-supply,
-div.edit-supply {
-  background-image: url(sewing-supplies.jpg);
-}
-
-div.tools,
-div.add-tool,
-div.edit-tool {
-  background-image: url(carpenter-tools.jpg);
-}
-
-div.projects,
-div.add-project,
-div.edit-project {
-  background-image: url(garden-project.jpg);
-} */
-
 .add-supply-form,
 .edit-supply-form,
 .add-tool-form,
 .edit-tool-form,
 .add-project-form,
 .edit-project-form {
-  background-color: #ebe6e2;
+  background-color: #e2e2e2;
   padding: 20px;
   margin: 20px;
 }
@@ -423,14 +388,14 @@ div.edit-project {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-right: 20px;
+  /* margin-right: 20px; */
   width: 100%;
 }
 
 .supply-item,
 .tool-item,
 .project-item {
-  background-color: #ebe6e2;
+  background-color: #e2e2e2;
   border-radius: 5px;
   padding: 10px;
   width: 45%;
@@ -482,7 +447,7 @@ footer {
   margin-top: 30px;
   margin-bottom: 15px;
   border: 0px;
-  color: #13498a;
+  color: #478294;
   font-size: 75%;
 }
 
@@ -496,11 +461,11 @@ footer ul li {
 footer a {
   bottom: 30px;
   right: 30px;
-  color: #13498a;
+  color: #478294 
 }
 
 footer a:hover {
-  color: #0ad1f0;
+  color: #a60311;
 }
 
 /* -------------------------------------
@@ -513,12 +478,12 @@ This is the ideal way to built websites because it is much easier to adapt from 
 @media only screen and (min-width: 320px) {
   body {
     border: 3px solid purple;
-    /* font-size: 20px; */
+    font-size: 20px;
   }
 
-  /* header {
+  header {
     font-size: 90%;
-  } */
+  }
 
   /* input {
       width: 150px;
@@ -526,30 +491,11 @@ This is the ideal way to built websites because it is much easier to adapt from 
 
   button {
     width: 100px;
+    font-size: 16px;
   }
 
   div.landing-buttons {
     flex-direction: column;
-  }
-
-  button.demo-button {
-    /* font-size: 150%; */
-    padding: 30px;
-  }
-
-  button.landing-button {
-    /* font-size: 120%; */
-    padding: 30px;
-  }
-
-  div.supplies-entrance,
-  div.tools-entrance,
-  div.projects-entrance {
-    height: 30vh;
-  }
-
-  button.entrance-button {
-    width: 150px;
   }
 
   .nav-icons {
@@ -582,6 +528,7 @@ This is the ideal way to built websites because it is much easier to adapt from 
 
   button {
     width: 125px;
+    font-size: 18px;
   }
 }
 
@@ -590,6 +537,10 @@ This is the ideal way to built websites because it is much easier to adapt from 
   body {
     border: 3px solid pink;
     /* font-size: 26px; */
+  }
+
+  button {
+    font-size: 20px;
   }
 
   div.page-heading {
@@ -615,9 +566,7 @@ This is the ideal way to built websites because it is much easier to adapt from 
     flex-direction: row;
   }
 
-  .inventory-buttons {
-    flex-direction: row;
-  }
+  
 
   .nav-icons {
     flex-direction: row;
@@ -647,8 +596,14 @@ This is the ideal way to built websites because it is much easier to adapt from 
     font-size: 250%;
   }
 
+  button {
+    width: 150px;
+    font-size: 24px;
+  }
+
   button.demo-button,
-  button.landing-button {
+  button.signup-button,
+  button.login-button {
     width: 250px;
     margin: 20px;
   }
