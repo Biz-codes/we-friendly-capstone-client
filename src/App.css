@@ -188,6 +188,10 @@ h2 {
   font-size: 200%;
 }
 
+h2.logo {
+  font-family: "Homemade Apple", cursive;
+}
+
 h3 {
   font-size: 150%;
 }
@@ -467,8 +471,7 @@ This is the ideal way to built websites because it is much easier to adapt from 
   }
 
   .business-item,
-  .tool-item,
-  .project-item {
+  .review-item {
     width: 100%;
   }
 

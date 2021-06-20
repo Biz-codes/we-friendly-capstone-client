@@ -87,7 +87,7 @@ export default class SearchBus extends Component {
             <option value="PR">PR</option>
             <option value="VI">VI</option>
           </select>
-          <label for="business-type">business/service type:</label>
+          <label htmlFor="business-type">business/service type:</label>
           <select>
             <option value="restaurant-bar">restaurant/bar</option>
             <option value="shopping">shopping</option>

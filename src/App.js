@@ -10,9 +10,6 @@ import Reviews from "./reviews/Reviews";
 import AddRev from "./reviews/AddRev";
 import EditRev from "./reviews/EditRev";
 import MeFriendly from "./me-friendly/MeFriendly";
-import BusAdded from "./me-friendly/BusAdded";
-import RevBy from "./me-friendly/RevBy";
-import Remember from "./me-friendly/Remember";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faLinkedin, faGithub } from "@fortawesome/free-brands-svg-icons";
@@ -38,9 +35,6 @@ class App extends Component {
             <Route path="/edit-business" component={EditBus} />
             <Route path="/add-review" component={AddRev} />
             <Route path="/edit-review" component={EditRev} />
-            <Route path="/added-by-me" component={BusAdded} />
-            <Route path="/written-by-me" component={RevBy} />
-            <Route path="/businesses-to-remember" component={Remember} />
           </Switch>
 
           <footer>

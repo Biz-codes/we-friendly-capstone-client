@@ -110,15 +110,6 @@ export default class AddBusiness extends Component {
     }
   }
 
-  // validateState() {
-  //   const state = this.state.state.value.trim();
-  //   if (state == null) {
-  //     return (
-  //       <p className="input-error">State is required</p>
-  //     );
-  //   }
-  // }
-
   validateZipcode() {
     const zipcode = this.state.zipcode.value.trim();
     if (zipcode.length === 0) {

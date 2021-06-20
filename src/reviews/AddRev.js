@@ -10,72 +10,60 @@ export default class AddReview extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      tool_name: {
+      friendly_for: {
         value: "",
         touched: false,
       },
-      details: {
+      rating: {
         value: "",
         touched: false,
       },
-      quantity: {
+      review: {
         value: "",
         touched: false,
       },
     };
   }
 
-  changeToolName(tool_name) {
+  changeFriendlyFor(friendly_for) {
     this.setState({
-      tool_name: { value: tool_name, touched: true },
+      friendly_for: { value: friendly_for, touched: true },
     });
   }
 
-  changeDetails(details) {
+  changeRating(rating) {
     this.setState({
-      details: { value: details, touched: true },
+      rating: { value: rating, touched: true },
+    });
+  }
+  
+  changeReview(review) {
+    this.setState({
+      review: { value: review, touched: true },
     });
   }
 
-  changeQuantity(quantity) {
-    this.setState({
-      quantity: { value: quantity, touched: true },
-    });
+  validateRating() {
+    const rating = this.state.rating.value.trim();
+    if (rating.length === 0) {
+      return <p className="input-error">rating is required</p>;
+    }
   }
 
-  validateToolName() {
-    const tool_name = this.state.tool_name.value.trim();
-    if (tool_name.length === 0) {
-      return <p className="input-error">Tool name is required</p>;
-    } else if (tool_name.length < 2) {
+  validateReview() {
+    const review = this.state.review.value.trim();
+    if (review.length === 0) {
+      return <p className="input-error">Review is required</p>;
+    } else if (review.length < 2) {
       return (
         <p className="input-error">
-          Tool name must be at least 2 characters long
+          review must be at least 2 characters long
         </p>
       );
     }
   }
 
-  validateDetails() {
-    const details = this.state.details.value.trim();
-    if (details.length === 0) {
-      return <p className="input-error">Details about the tool are required</p>;
-    } else if (details.length < 2) {
-      return (
-        <p className="input-error">
-          Details must be at least 2 characters long
-        </p>
-      );
-    }
-  }
-
-  validateQuantity() {
-    const quantity = this.state.quantity.value.trim();
-    if (quantity.length === 0) {
-      return <p className="input-error">Quantity is required</p>;
-    }
-  }
-
+  
   componentDidMount() {
     let currentUser = TokenService.getUserId();
     // console.log(currentUser);
@@ -86,7 +74,7 @@ export default class AddReview extends Component {
     }
   }
 
-  addTool(e) {
+  addReview(e) {
     e.preventDefault();
 
     const data = {};
@@ -97,26 +85,27 @@ export default class AddReview extends Component {
       data[value[0]] = value[1];
     }
 
-    let user_id = TokenService.getUserId();
+    let reviewer_id = TokenService.getUserId();
 
-    let { tool_name, details, quantity } = data;
+    let { friendly_for, rating, review } = data;
 
     let payload = {
-      user_id: user_id,
-      tool_name: tool_name,
-      details: details,
-      quantity: quantity,
+      reviewer_id: reviewer_id,
+      friendly_for: friendly_for,
+      rating: rating,
+      review: review,
+      
     };
     // console.log(payload)
 
-    fetch(`${config.API_ENDPOINT}/tools`, {
+    fetch(`${config.API_ENDPOINT}/reviews`, {
       method: "POST",
       body: JSON.stringify(payload),
       headers: { "content-type": "application/json" },
     })
       .then((res) => res.json())
       .then((resJson) => {
-        window.location = "/tools";
+        window.location = "/businesses";
       })
       .catch((err) => {
         console.log(err);
@@ -125,44 +114,41 @@ export default class AddReview extends Component {
 
   render() {
     return (
-      <div className="add-tool">
-        <form className="add-tool-form" onSubmit={this.addTool}>
-          <h3>Add a tool to your inventory!</h3>
-          <label htmlFor="tool_name">tool name:</label>
+      <div className="add-review">
+        <form className="add-review-form" onSubmit={this.addReview}>
+          <h3>Write a review of (business_name), (business.zipcode)</h3>
+          <label htmlFor="friendly_for">tool name:</label>
           <input
             type="text"
-            id="tool_name"
-            name="tool_name"
-            onChange={(e) => this.changeToolName(e.target.value)}
+            id="friendly_for"
+            name="friendly_for"
+            onChange={(e) => this.changeFriendlyFor(e.target.value)}
             required
           />
-          {this.state.tool_name.touched && (
-            <ValidationError message={this.validateToolName()} />
-          )}
-          <label htmlFor="details">details:</label>
-          <input
-            type="text"
-            id="details"
-            name="details"
-            onChange={(e) => this.changeDetails(e.target.value)}
-            required
-          />
-          {this.state.details.touched && (
-            <ValidationError message={this.validateDetails()} />
-          )}
-          <label htmlFor="quantity">quantity:</label>
+          <label htmlFor="rating">rating:</label>
           <input
             type="number"
-            id="quantity"
-            name="quantity"
-            onChange={(e) => this.changeQuantity(e.target.value)}
+            id="rating"
+            name="rating"
+            onChange={(e) => this.changeRating(e.target.value)}
             required
           />
-          {this.state.quantity.touched && (
-            <ValidationError message={this.validateQuantity()} />
+          {this.state.rating.touched && (
+            <ValidationError message={this.validateRating()} />
+          )}
+          <label htmlFor="review">review:</label>
+          <input
+            type="text"
+            id="review"
+            name="review"
+            onChange={(e) => this.changeReview(e.target.value)}
+            required
+          />
+          {this.state.review.touched && (
+            <ValidationError message={this.validateReview()} />
           )}
           <div className="buttons">
-            <NavLink to="/tools">
+            <NavLink to="/businesses">
               <button>
                 <FontAwesomeIcon icon={faStepBackward} /> Cancel
               </button>

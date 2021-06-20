@@ -93,6 +93,41 @@ class Businesses extends Component {
 
   }
 
+  remember(e) {
+    e.preventDefault();
+
+    const data = {};
+
+    const formData = new FormData(e.target);
+
+    for (let value of formData) {
+      data[value[0]] = value[1];
+    }
+
+    let user_id = TokenService.getUserId();
+
+    let { business_id } = data;
+
+    let payload = {
+      user_id: user_id,
+      business_id: business_id,
+    };
+    console.log(payload)
+
+    fetch(`${config.API_ENDPOINT}/remembered-businesses`, {
+      method: "POST",
+      body: JSON.stringify(payload),
+      headers: { "content-type": "application/json" },
+    })
+      .then((res) => res.json())
+      // .then((resJson) => {
+      //   window.location = "/me-friendly";
+      // })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
 
   render() {
     const showBusinesses = this.state.results.map((business, key) => {
@@ -108,9 +143,16 @@ class Businesses extends Component {
             <NavLink to={{ pathname: "/add-review", business_id: business.id }}>
               <button>write a review</button>
             </NavLink>
-            {/* <button className="remember">
+            <form className="remember" onSubmit={this.remember}>
+              <input
+                type="hidden"
+                name="review_id"
+                defaultValue={business.id}
+              ></input>
+              <button type="submit" className="remember">
                 remember
-            </button> */}
+              </button>
+            </form>
           </div>
         </div>
       );
