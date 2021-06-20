@@ -257,7 +257,7 @@ button.login-button {
   background-color: #478294;
   height: 15vh;
   width: 200px;
-  padding: 40px;
+  padding: 10px;
   font-size: 150%;
   border-radius: 10px;
 }
@@ -265,6 +265,7 @@ button.login-button {
 /* Dashboard, Supplies, Tools, and Projects pages */
 
 .nested-nav {
+  position: relative;
   display: flex;
   padding: 0;
   flex-direction: column;
@@ -301,21 +302,21 @@ button.login-button {
 
 .nav-icons li a:hover {
   /* color: #bd1e0f; */
-  color: #f0e981;
+  color: #bd1e0f;
 }
 
 /* Reviews styles */
 
-.reviews {
+.reviews-page {
   position: relative;
-  height: auto;
+  /* height: 200vh; */
   /* display: flex; */
   align-items: center;
   justify-content: center;
   /* margin: 10px; */
 }
 
-.reviews {
+.reviews-page::before{
   content: "";
   background-image: url(rainbow-flags.jpg);
   background-size: cover;
@@ -328,6 +329,10 @@ button.login-button {
   bottom: 0px;
   left: 0px;
   border-radius: 20px;
+}
+
+.reviews {
+  position: relative;
 }
 
 div.tools-entrance::before {
@@ -392,9 +397,8 @@ button.entrance-button {
   width: 100%;
 }
 
-.supply-item,
-.tool-item,
-.project-item {
+.business-item,
+.review-item {
   background-color: #e2e2e2;
   border-radius: 5px;
   padding: 10px;

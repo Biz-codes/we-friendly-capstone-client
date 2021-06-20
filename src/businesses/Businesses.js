@@ -69,7 +69,15 @@ class Businesses extends Component {
 
     return (
       <div className="businesses">
-        <Nav />
+        <div className="nested-nav">
+          <div className="page-heading">
+            <Nav />
+          </div>
+          <div className="page-heading">
+            <h3>Search for a business or service:</h3>
+          </div>
+        </div>
+        
         <div className="search">
           <SearchBus />
         </div>

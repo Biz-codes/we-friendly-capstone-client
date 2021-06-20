@@ -24,27 +24,6 @@ class Reviews extends Component {
       window.location = "/";
     }
 
-    let businessesUrl = `${config.API_ENDPOINT}/businesses`
-
-    fetch(businessesUrl)
-      .then((businesses) => businesses.json())
-      .then((businesses) => {
-        return businesses.sort((a, b) => {
-          let result = 0;
-          if (a.name > b.name) return 1;
-          if (a.name < b.name) return -1;
-          return result;
-        });
-      })
-      .then((businesses) => {
-        this.setState({
-          businesses: businesses,
-        });
-      })
-
-      .catch((error) => this.setState({ error }));
-  
-
     let reviewsUrl = `${config.API_ENDPOINT}/reviews`;
 
     fetch(reviewsUrl)
@@ -64,7 +43,20 @@ class Reviews extends Component {
       })
 
       .catch((error) => this.setState({ error }));
+    
+    // let business_id = review.
+    // let getBusinessByIdUrl = `${config.API_ENDPOINT}/businesses/${business_id}`
+
+    // fetch(getBusinessByIdUrl)
+    //   .then((business) => business.json())
+    //   .then((business) => {
+    //     this.setState({
+    //       business: business
+    //     })
+    //   })
+    
   }
+  
 
   
 
@@ -76,26 +68,27 @@ class Reviews extends Component {
           <h3>{review.business_id.name}                        {review.rating}</h3>
           <p>{review.friendly_for} -friendly        {review.business_id.zipcode}</p>
           <p>{review.review}</p>
-          <p>{review.reviewer_id.username}                {review.date_modified}</p>
+          <p>{review.reviewer_id.username}                {review.date_modified.slice(0, 10)}</p>
         </div>
       );
     });
 
     return (
-      <div className="reviews">
+      <div className="reviews-page">
         <div className="nested-nav">
-          <div className="page-heading">
-            <h2 className="page-title">Search for reviews</h2>
-          </div>
           <div className="page-heading">
             <Nav />
           </div>
-
-          <div className="review-items">{showReviews}</div>
-
-      
+          <div className="page-heading">
+            <h2 className="page-title">Search for reviews</h2>
+          </div>
         </div>
-        <footer><a href='https://www.freepik.com/photos/background'>Background photo created by rawpixel.com - www.freepik.com</a></footer>
+        <div className="reviews">
+          <div className="search">Search will go here.</div>
+          <div className="results">{showReviews}</div>
+          <footer><a href='https://www.freepik.com/photos/background'>Background photo created by rawpixel.com - www.freepik.com</a></footer>
+        </div>
+        
       </div>
     );
   }
