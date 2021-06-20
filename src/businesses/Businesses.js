@@ -12,6 +12,10 @@ class Businesses extends Component {
     super(props);
     this.state = {
       businesses: [],
+      error: null,
+      params: {
+
+      }
     };
   }
 
@@ -23,6 +27,9 @@ class Businesses extends Component {
     if (!TokenService.hasAuthToken()) {
       window.location = "/";
     }
+
+    //get businesses from the API
+
     let businessesUrl = `${config.API_ENDPOINT}/businesses`
 
     fetch(businessesUrl)
@@ -42,6 +49,33 @@ class Businesses extends Component {
       })
 
       .catch((error) => this.setState({ error }));
+  }
+
+  formatQueryParams(params) {
+    const results = Object.keys(params)
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+    return results.join('&')
+  }
+
+  handleSearch = (e) => {
+    e.preventDefault()
+
+    const data = {}
+
+    const formData = new FormData(e.target)
+
+    //for each of the keys in form data populate it with form value
+    for (let value of formData) {
+      data[value[0]] = value[1]
+    }
+
+    //assigning the object from the form data to params in the state
+    this.setState({
+      params: data
+    })
+
+    //check if the state is populated with the search params data
+    console.log(this.state.params)
   }
 
 

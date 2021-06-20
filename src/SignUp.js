@@ -140,6 +140,16 @@ export default class SignUp extends Component {
       <div className="sign-up">
         <h2>Create an account!</h2>
         <form className="sign-up-form" onSubmit={this.registerUser}>
+          <h3>we-friendly community code of respect:</h3>
+          <p>
+            By clicking the box below, I agree to be respectful toward all other users - 
+            those who identify the same way(s) I do, and those who identify differently.
+            I agree to be empathic toward other people's views, without making assumptions
+            about the lived experiences of other folx. Basically, I agree to contribute
+            to making we-friendly a safe space.
+          </p>
+          <label for="agree"></label>
+          <input type="checkbox" required/>
           <label htmlFor="name">name:</label>
           <input
             type="text"

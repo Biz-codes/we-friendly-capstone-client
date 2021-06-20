@@ -92,6 +92,16 @@ export default class LogIn extends Component {
         <p className="demo">username: Demo</p>
         <p className="demo">password: Friendly1</p>
         <form className="log-in-form" onSubmit={this.loginUser}>
+          <h3>we-friendly community code of respect:</h3>
+          <p>
+            By clicking the box below, I agree to be respectful toward all other users - 
+            those who identify the same way(s) I do, and those who identify differently.
+            I agree to be empathic toward other people's views, without making assumptions
+            about the lived experiences of other folx. Basically, I agree to contribute
+            to making we-friendly a safe space.
+          </p>
+          <label for="agree"></label>
+          <input type="checkbox" required/>
           <label htmlFor="username">username:</label>
           <input
             type="text"
