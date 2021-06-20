@@ -335,61 +335,44 @@ button.login-button {
   position: relative;
 }
 
-div.tools-entrance::before {
-  content: "";
-  /* background-image: url(carpenter-tools.jpg); */
-  background-size: cover;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-  border-radius: 20px;
-  border: 2px solid #f0530a;
-}
-
-div.projects-entrance::before {
-  content: "";
-  /* background-image: url(garden-project.jpg); */
-  background-size: cover;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-  border-radius: 20px;
-  border: 2px solid #59eca3;
-}
-
-button.entrance-button {
+.businesses-page {
   position: relative;
-  background-color: #ebe6e2;
-  padding: 20px;
-  font-size: 100%;
-  font-family: "Caveat", cursive;
-  border-radius: 10px;
-  width: 175px;
+  /* height: 200vh; */
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  /* margin: 10px; */
 }
 
-.add-supply-form,
-.edit-supply-form,
-.add-tool-form,
-.edit-tool-form,
-.add-project-form,
-.edit-project-form {
+.businesses-page::before{
+  content: "";
+  background-image: url(shopping-bags.jpg);
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  border-radius: 20px;
+}
+
+.businesses {
+  position: relative;
+}
+
+.add-business-form,
+.edit-business-form,
+.add-review-form,
+.edit-review-form {
   background-color: #e2e2e2;
   padding: 20px;
   margin: 20px;
 }
-.supply-items,
-.tool-items,
-.project-items {
+.business-items,
+.review-items {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -403,43 +386,15 @@ button.entrance-button {
   border-radius: 5px;
   padding: 10px;
   width: 45%;
+  text-align: left
 }
 
-.supply-item {
-  border: 3px solid #0ad1f0;
+.business-item {
+  border: 3px solid #009300;
 }
 
-.tool-item {
-  border: 3px solid #f0530a;
-}
-
-.project-item {
-  border: 3px solid #59eca3;
-}
-
-div.specs,
-div.project-specs {
-  display: flex;
-  margin: 5px;
-}
-
-div.supply-specs-column,
-div.tool-specs-column,
-div.project-specs-column {
-  text-align: left;
-  padding: 10px;
-}
-
-div.supply-specs-column {
-  border: 1px dashed #0891a6;
-}
-
-div.tool-specs-column {
-  border: 1px dashed #e64f0a;
-}
-
-div.project-specs-column {
-  border: 1px dashed #139654;
+.review-item {
+  border: 3px solid #f28705;
 }
 
 /* -------------------------------------
@@ -506,13 +461,12 @@ This is the ideal way to built websites because it is much easier to adapt from 
     flex-direction: column;
   }
 
-  .supply-items,
-  .tool-items,
-  .project-items {
+  .business-items,
+  .review-items {
     flex-direction: column;
   }
 
-  .supply-item,
+  .business-item,
   .tool-item,
   .project-item {
     width: 100%;
@@ -551,13 +505,6 @@ This is the ideal way to built websites because it is much easier to adapt from 
     margin: 10px;
   }
 
-  button.entrance-button {
-    width: 175px;
-  }
-
-  div.project-specs {
-    flex-direction: row;
-  }
 }
 
 /*iPad potrait*/
@@ -570,21 +517,19 @@ This is the ideal way to built websites because it is much easier to adapt from 
     flex-direction: row;
   }
 
-  
-
   .nav-icons {
     flex-direction: row;
     justify-content: space-between;
     /* font-size: 18px; */
   }
 
-  .supply-items,
-  .tool-items {
+  .business-items,
+  .review-items {
     flex-direction: row;
   }
 
-  .supply-item,
-  .tool-item {
+  .business-item,
+  .review-item {
     width: 45%;
   }
 }

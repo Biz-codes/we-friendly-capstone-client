@@ -6,11 +6,9 @@ import LogIn from "./LogIn";
 import Businesses from "./businesses/Businesses";
 import AddBus from "./businesses/AddBus";
 import EditBus from "./businesses/EditBus";
-import FilterBus from "./businesses/FilterBus";
 import Reviews from "./reviews/Reviews";
 import AddRev from "./reviews/AddRev";
 import EditRev from "./reviews/EditRev";
-import FilterRev from "./reviews/FilterRev"
 import MeFriendly from "./me-friendly/MeFriendly";
 import BusAdded from "./me-friendly/BusAdded";
 import RevBy from "./me-friendly/RevBy";

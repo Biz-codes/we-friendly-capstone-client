@@ -12,10 +12,7 @@ class Businesses extends Component {
     super(props);
     this.state = {
       businesses: [],
-      error: null,
-      params: {
-
-      }
+      results: []
     };
   }
 
@@ -45,16 +42,11 @@ class Businesses extends Component {
       .then((businesses) => {
         this.setState({
           businesses: businesses,
+          results: businesses,
         });
       })
 
       .catch((error) => this.setState({ error }));
-  }
-
-  formatQueryParams(params) {
-    const results = Object.keys(params)
-      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
-    return results.join('&')
   }
 
   handleSearch = (e) => {
@@ -69,20 +61,43 @@ class Businesses extends Component {
       data[value[0]] = value[1]
     }
 
-    //assigning the object from the form data to params in the state
-    this.setState({
-      params: data
-    })
-
     //check if the state is populated with the search params data
     console.log(this.state.params)
+
+    function findBusiness() {
+      let businesses = this.state
+      let searchName = data.name.value
+      let searchZip = data.zipcode.value
+      
+      let results = []
+      if (searchName) {
+        for (let i=0; i<businesses.length; i++) {
+          if (searchName.toLowerCase === businesses[i].name.value.toLowerCase) {
+            results.push(businesses[i])
+          } 
+        }
+        if (results == null) {
+          return `We couldn't find that business. Check your spelling and try again, or click + Add Business`
+        }
+      }
+      if(searchZip) {
+        for (let i=0; i<businesses.length; i++) {
+          if(searchZip === businesses[i].zipcode.value) {
+            results.push(businesses[i])
+          }
+        }
+      }
+      return results      
+    }
+    findBusiness(data)
+
   }
 
 
   render() {
-    const showBusinesses = this.state.businesses.map((business, key) => {
+    const showBusinesses = this.state.results.map((business, key) => {
       return (
-        <div className="supply-item" key={key}>
+        <div className="business-item" key={key}>
           <h3>{business.name}</h3>
           <p>{business.category}</p>
           <p>{business.address}</p>
@@ -102,7 +117,7 @@ class Businesses extends Component {
     });
 
     return (
-      <div className="businesses">
+      <div className="businesses-page">
         <div className="nested-nav">
           <div className="page-heading">
             <Nav />
@@ -111,23 +126,26 @@ class Businesses extends Component {
             <h3>Search for a business or service:</h3>
           </div>
         </div>
-        
-        <div className="search">
-          <SearchBus />
+        <div className="businesses">
+          <div className="search">
+            <SearchBus />
+          </div>
+          <div className="business-items">
+            <h2>Results:</h2>
+            {showBusinesses}
+          </div>        
+          <div>          
+            <NavLink to="/add-business">
+              <button>
+                <FontAwesomeIcon icon={faPlus} />
+                <p>Add a business</p>
+              </button>    
+            </NavLink>
+            {/* <button>clear search</button> */}
+          </div>          
         </div>
-        <div className="results">
-          <h2>Results</h2>
-          {showBusinesses}
-        </div>        
-        <div>          
-          <NavLink to="/add-business">
-            <button>
-              <FontAwesomeIcon icon={faPlus} />
-              <p>Add a business</p>
-            </button>    
-          </NavLink>
-          {/* <button>clear search</button> */}
-        </div>
+
+        <footer><a href='https://www.freepik.com/photos/paper'>Paper photo created by jcomp - www.freepik.com</a></footer>
       </div>
     );
   }

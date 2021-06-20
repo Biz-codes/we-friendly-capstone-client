@@ -85,7 +85,7 @@ class Reviews extends Component {
         </div>
         <div className="reviews">
           <div className="search">Search will go here.</div>
-          <div className="results">{showReviews}</div>
+          <div className="review-items">{showReviews}</div>
           <footer><a href='https://www.freepik.com/photos/background'>Background photo created by rawpixel.com - www.freepik.com</a></footer>
         </div>
         
