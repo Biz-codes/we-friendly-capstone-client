@@ -117,14 +117,19 @@ export default class AddReview extends Component {
       <div className="add-review">
         <form className="add-review-form" onSubmit={this.addReview}>
           <h3>Write a review of (business_name), (business.zipcode)</h3>
-          <label htmlFor="friendly_for">tool name:</label>
-          <input
-            type="text"
+          <label htmlFor="friendly_for">-friendly identity:</label>
+          <select
             id="friendly_for"
             name="friendly_for"
             onChange={(e) => this.changeFriendlyFor(e.target.value)}
             required
-          />
+          >
+            <option value="POC">Black, Asian/Pacific Islander, Latinx, and Indigenous persons</option>
+            <option value="disabled-persons">Disabled persons</option>
+            <option value="migrants-immigrants">Migrants/Immigrants</option>
+            <option value="LGBTQIA+">LGBTQIA+</option>
+            <option value="women">Women</option>
+          </select>
           <label htmlFor="rating">rating:</label>
           <input
             type="number"

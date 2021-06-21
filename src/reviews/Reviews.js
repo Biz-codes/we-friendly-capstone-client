@@ -5,6 +5,7 @@ import config from "../config";
 import TokenService from "../services/token-service";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SearchRev from './SearchRev';
 
 class Reviews extends Component {
   constructor(props) {
@@ -84,7 +85,9 @@ class Reviews extends Component {
           </div>
         </div>
         <div className="reviews">
-          <div className="search">Search will go here.</div>
+          <div className="search">
+            <SearchRev />
+          </div>
           <div className="review-items">{showReviews}</div>
           <footer><a href='https://www.freepik.com/photos/background'>Background photo created by rawpixel.com - www.freepik.com</a></footer>
         </div>

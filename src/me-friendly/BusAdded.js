@@ -78,8 +78,7 @@ class BusAdded extends Component {
           <div>          
             <NavLink to="/add-business">
               <button>
-                <FontAwesomeIcon icon={faPlus} />
-                <p>Add a business</p>
+                <FontAwesomeIcon icon={faPlus} /> add a business
               </button>    
             </NavLink>
           </div>          

@@ -106,7 +106,7 @@ input,
 select,
 button {
   border: 2px solid #133457;
-  padding: 10px 25px;
+  padding: 10px;
   margin: 5px;
   border-radius: 5px;
   color: black;
@@ -125,7 +125,8 @@ button {
   font-size: 150%;
 }
 
-input {
+input,
+select {
   width: 90%;
 }
 
@@ -309,7 +310,13 @@ button.login-button {
   color: #bd1e0f;
 }
 
-/* Reviews styles */
+/* Reviews, Businesses and MeFriendly styles */
+
+.search-form {
+  background-color: #a2b7bc;
+  margin-bottom: 50px;
+  padding-bottom: 20px
+}
 
 .reviews-page {
   position: relative;
@@ -390,7 +397,8 @@ button.login-button {
   border-radius: 5px;
   padding: 10px;
   width: 45%;
-  text-align: left
+  text-align: left;
+  word-wrap: break-word;
 }
 
 .business-item {
@@ -441,20 +449,22 @@ This is the ideal way to built websites because it is much easier to adapt from 
 @media only screen and (min-width: 320px) {
   body {
     border: 3px solid purple;
-    font-size: 20px;
+    font-size: 16px;
   }
 
   header {
     font-size: 90%;
   }
 
-  /* input {
-      width: 150px;
-    } */
+  input,
+  select {
+      font-size: 14px;
+    }
 
   button {
     width: 100px;
-    font-size: 16px;
+    height: 8vh;
+    font-size: 14px;
   }
 
   div.landing-buttons {
@@ -484,11 +494,18 @@ This is the ideal way to built websites because it is much easier to adapt from 
 @media only screen and (min-width: 480px) {
   body {
     border: 3px solid green;
-    /* font-size: 24px; */
+    font-size: 20px;
   }
+
+  input,
+  select {
+      font-size: 18px;
+    }
+
 
   button {
     width: 125px;
+    height: 10vh;
     font-size: 18px;
   }
 }
@@ -497,7 +514,7 @@ This is the ideal way to built websites because it is much easier to adapt from 
 @media only screen and (min-width: 640px) {
   body {
     border: 3px solid pink;
-    /* font-size: 26px; */
+    font-size: 22px;
   }
 
   button {
@@ -506,6 +523,11 @@ This is the ideal way to built websites because it is much easier to adapt from 
 
   div.page-heading {
     margin: 10px;
+  }
+
+  .business-item,
+  .review-item {
+    padding: 25px;
   }
 
 }
@@ -550,7 +572,7 @@ This is the ideal way to built websites because it is much easier to adapt from 
 
   button {
     width: 150px;
-    font-size: 24px;
+    font-size: 22px;
   }
 
   button.demo-button,

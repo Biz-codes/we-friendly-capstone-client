@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 
-export default function SearchBus(props)  {
+export default class SearchBus extends Component {
+
+  render() {
     
     return (
       <form 
         className="search-form"
-        onSubmit = {props.onHandleSearch}
+        onSubmit = {this.props.handleSearch}
       >
         <div className="searchBar">
-          <label htmlFor="name">business name:</label>
+          <label htmlFor="business-name">business name:</label>
           <input 
             type="text"
-            name="name"
+            name="business-name"
+            required
           />
           <label htmlFor="zipcode">zipcode:</label>
           <input
@@ -21,9 +24,21 @@ export default function SearchBus(props)  {
         </div>
         <div className="filters">
           <h3>filter by:</h3>
+          <label htmlFor="friendly_for">-friendly identity:</label>
+          <select
+            name="friendly_for"
+          >
+            <option value="select">select -friendly identity</option>
+            <option value="POC">Black, Asian/Pacific Islander, Latinx, and Indigenous persons</option>
+            <option value="disabled-persons">Disabled persons</option>
+            <option value="migrants-immigrants">Migrants/Immigrants</option>
+            <option value="LGBTQIA+">LGBTQIA+</option>
+            <option value="women">Women</option>
+          </select>
+
           <label htmlFor="state">state, district or territory</label>
           <select name='state'>
-            <option value="select" selected>select state</option>
+            <option value="select">select state</option>
             <option value="AK">AK</option>
             <option value="AL">AL</option>
             <option value="AR">AR</option>
@@ -81,7 +96,7 @@ export default function SearchBus(props)  {
             <option value="PR">PR</option>
             <option value="VI">VI</option>
           </select>
-          <label htmlFor="category">business/service category:</label>
+          <label htmlFor="business-type">business/service category:</label>
           <select name="category">
             <option value="select">select category</option>
             <option value="restaurant/bar">restaurant/bar</option>
@@ -91,10 +106,11 @@ export default function SearchBus(props)  {
             <option value="housing/realty">housing/realty</option>
             <option value="education">education</option>
             <option value="healthcare">healthcare</option>
-          </select>          
+          </select>         
         </div>
         <button type="submit">search</button>
       </form>
     );
   
   }
+}

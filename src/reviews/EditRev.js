@@ -6,72 +6,57 @@ import ValidationError from "../ValidationError";
 import { faSave, faStepBackward } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default class EditTool extends Component {
+export default class EditRev extends Component {
   state = {
-    tool_name: {
+    friendly_for: {
       value: "",
       touched: false,
     },
-    details: {
+    rating: {
       value: "",
       touched: false,
     },
-    quantity: {
+    review: {
       value: "",
       touched: false,
     },
   };
 
-  changeToolName(tool_name) {
+  changeFriendlyFor(friendly_for) {
     this.setState({
-      tool_name: { value: tool_name, touched: true },
+      friendly_for: { value: friendly_for, touched: true },
     });
   }
 
-  changeDetails(details) {
+  changeRating(rating) {
     this.setState({
-      details: { value: details, touched: true },
+      rating: { value: rating, touched: true },
+    });
+  }
+  
+  changeReview(review) {
+    this.setState({
+      review: { value: review, touched: true },
     });
   }
 
-  changeQuantity(quantity) {
-    this.setState({
-      quantity: { value: quantity, touched: true },
-    });
-  }
-
-  validateToolName() {
-    const tool_name = this.state.tool_name.value.trim();
-    if (tool_name.length === 0) {
-      return <p className="input-error">Tool name is required</p>;
-    } else if (tool_name.length < 2) {
-      return (
-        <p className="input-error">
-          Tool name must be at least 2 characters long
-        </p>
-      );
+  validateRating() {
+    const rating = this.state.rating.value.trim();
+    if (rating.length === 0) {
+      return <p className="input-error">rating is required</p>;
     }
   }
 
-  validateDetails() {
-    const details = this.state.details.value.trim();
-    if (details.length === 0) {
-      return (
-        <p className="input-error">Details about the supply are required</p>
-      );
-    } else if (details.length < 2) {
+  validateReview() {
+    const review = this.state.review.value.trim();
+    if (review.length === 0) {
+      return <p className="input-error">Review is required</p>;
+    } else if (review.length < 2) {
       return (
         <p className="input-error">
-          Details must be at least 2 characters long
+          review must be at least 2 characters long
         </p>
       );
-    }
-  }
-
-  validateQuantity() {
-    const quantity = this.state.quantity.value.trim();
-    if (quantity === null) {
-      return <p className="input-error">Quantity is required</p>;
     }
   }
 
@@ -84,27 +69,33 @@ export default class EditTool extends Component {
       window.location = "/";
     }
 
-    let tool_id = this.props.location.tool_id;
+    let review_id = this.props.location.tool_id;
 
-    let getToolSpecsUrl = `${config.API_ENDPOINT}/tools/${tool_id}`;
+    let getReviewSpecsUrl = `${config.API_ENDPOINT}/reviews/${review_id}`;
 
-    fetch(getToolSpecsUrl)
+    fetch(getReviewSpecsUrl)
       .then((res) => res.json())
-      .then(({ tool_name, details, quantity }) => {
+      .then(({ friendly_for, rating, review }) => {
         this.setState({
-          tool_name: {
-            value: tool_name,
-            touched: this.state.tool_name.touched,
+          friendly_for: {
+            value: friendly_for,
+            touched: this.state.friendly_for.touched,
           },
-          details: { value: details, touched: this.state.details.touched },
-          quantity: { value: quantity, touched: this.state.quantity.touched },
+          rating: { 
+            value: rating, 
+            touched: this.state.rating.touched 
+          },
+          review: { 
+            value: review, 
+            touched: this.state.quantity.touched 
+          },
         });
       })
 
       .catch((error) => this.setState({ error }));
   }
 
-  updateTool = (event) => {
+  updateReview = (event) => {
     // console.log('hello there')
     event.preventDefault();
     const data = {};
@@ -115,19 +106,19 @@ export default class EditTool extends Component {
       data[value[0]] = value[1];
     }
 
-    let user_id = TokenService.getUserId();
+    let reviewer_id = TokenService.getUserId();
 
-    let { tool_name, details, quantity } = data;
+    let { friendly_for, rating, review } = data;
 
     let payload = {
-      user_id: user_id,
-      tool_name: tool_name,
-      details: details,
-      quantity: quantity,
+      reviewer_id: reviewer_id,
+      friendly_for: friendly_for,
+      rating: rating,
+      review: review,
     };
     // console.log(payload);
 
-    fetch(`${config.API_ENDPOINT}/tools/${this.props.location.tool_id}`, {
+    fetch(`${config.API_ENDPOINT}/tools/${this.props.location.review_id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -143,46 +134,48 @@ export default class EditTool extends Component {
   };
 
   render() {
-    let showToolSpecs = "";
-    showToolSpecs = (
-      <div className="edit-tool">
-        <form className="edit-tool-form" onSubmit={this.updateTool}>
-          <h3>Update this tool:</h3>
-          <label htmlFor="tool_name">tool name:</label>
-          <input
-            type="text"
-            id="tool_name"
-            name="tool_name"
-            value={this.state.tool_name.value}
-            onChange={(e) => this.changeToolName(e.target.value)}
+    let showReviewSpecs = "";
+    showReviewSpecs = (
+      <div className="edit-review">
+        <form className="edit-review-form" onSubmit={this.updateReview}>
+          <h3>Edit your review of (business_name, business_zip)</h3>
+          <label htmlFor="friendly_for">-friendly identity:</label>
+          <select
+            id="friendly_for"
+            name="friendly_for"
+            value={this.state.friendly_for.value}
+            onChange={(e) => this.changeFriendlyFor(e.target.value)}
             required
-          />
-          {this.state.tool_name.touched && (
-            <ValidationError message={this.validateToolName()} />
-          )}
-          <label htmlFor="details">details:</label>
-          <input
-            type="text"
-            id="details"
-            name="details"
-            value={this.state.details.value}
-            onChange={(e) => this.changeDetails(e.target.value)}
-            required
-          />
-          {this.state.details.touched && (
-            <ValidationError message={this.validateDetails()} />
-          )}
-          <label htmlFor="quantity">quantity:</label>
+          >
+            <option value="POC">Black, Asian/Pacific Islander, Latinx, and Indigenous persons</option>
+            <option value="disabled-persons">Disabled persons</option>
+            <option value="migrants-immigrants">Migrants/Immigrants</option>
+            <option value="LGBTQIA+">LGBTQIA+</option>
+            <option value="women">Women</option>
+          </select>
+          <label htmlFor="rating">rating:</label>
           <input
             type="number"
-            id="quantity"
-            name="quantity"
-            defaultValue={this.state.quantity.value}
-            onChange={(e) => this.changeQuantity(e.target.value)}
+            id="rating"
+            name="rating"
+            value={this.state.rating.value}
+            onChange={(e) => this.changeRating(e.target.value)}
             required
           />
-          {this.state.quantity.touched && (
-            <ValidationError message={this.validateQuantity()} />
+          {this.state.rating.touched && (
+            <ValidationError message={this.validateRating()} />
+          )}
+          <label htmlFor="review">review:</label>
+          <input
+            type="text"
+            id="review"
+            name="review"
+            value={this.state.review.value}
+            onChange={(e) => this.changeReview(e.target.value)}
+            required
+          />
+          {this.state.review.touched && (
+            <ValidationError message={this.validateReview()} />
           )}
           <div className="buttons">
             <NavLink to="/tools">
@@ -199,6 +192,6 @@ export default class EditTool extends Component {
       </div>
     );
 
-    return <div>{showToolSpecs}</div>;
+    return <div>{showReviewSpecs}</div>;
   }
 }

@@ -62,34 +62,54 @@ class Businesses extends Component {
     }
 
     //check if the state is populated with the search params data
-    console.log(this.state.params)
+    // console.log(data)
 
-    function findBusiness() {
-      let businesses = this.state
-      let searchName = data.name.value
-      let searchZip = data.zipcode.value
-      
+    
+      let businesses = this.state.businesses
+      let searchName = data.name
+      let searchZip = data.zipcode
+      let searchState = data.state
+      let searchCategory = data.category
+      // console.log(businesses)
+      // console.log(searchName, searchZip, searchState, searchCategory)
+
       let results = []
-      if (searchName) {
+
+      if (searchName != null) {
         for (let i=0; i<businesses.length; i++) {
-          if (searchName.toLowerCase === businesses[i].name.value.toLowerCase) {
+          if (searchName == businesses[i].name) {
             results.push(businesses[i])
           } 
         }
-        if (results == null) {
-          return `We couldn't find that business. Check your spelling and try again, or click + Add Business`
-        }
       }
-      if(searchZip) {
-        for (let i=0; i<businesses.length; i++) {
-          if(searchZip === businesses[i].zipcode.value) {
-            results.push(businesses[i])
-          }
-        }
-      }
+      // if(searchZip) {
+      //   for (let i=0; i<businesses.length; i++) {
+      //     if(searchZip == businesses[i].zipcode) {
+      //       results.push(businesses[i])
+      //     }
+      //   }
+      // }
+      // if(searchState != "select") {
+      //   for (let i=0; i<businesses.length; i++) {
+      //     if(searchState === businesses[i].state) {
+      //       results.push(businesses[i])
+      //     }
+      //   }
+      // } 
+      // if(searchCategory != "select") {
+      //   for (let i=0; i<businesses.length; i++) {
+      //     if(searchCategory === businesses[i].category) {
+      //       results.push(businesses[i])
+      //     }
+      //   }
+      // } 
+      else {
+        results = businesses
+      }      
+      console.log(results)
+      
       return results      
-    }
-    findBusiness(data)
+   
 
   }
 
@@ -170,17 +190,18 @@ class Businesses extends Component {
         </div>
         <div className="businesses">
           <div className="search">
-            <SearchBus />
+            <SearchBus onHandleSearch={(event) => this.handleSearch(event)}/>
           </div>
+          <div className="page-heading"><h2>Results:</h2></div>
+          
           <div className="business-items">
-            <h2>Results:</h2>
+            
             {showBusinesses}
           </div>        
           <div>          
             <NavLink to="/add-business">
               <button>
-                <FontAwesomeIcon icon={faPlus} />
-                <p>Add a business</p>
+                <FontAwesomeIcon icon={faPlus} /> add a business
               </button>    
             </NavLink>
             {/* <button>clear search</button> */}
