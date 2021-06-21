@@ -18,9 +18,6 @@ export default function SearchBus(props)  {
             type="text"
             name="zipcode"
           />
-        </div>
-        <div className="filters">
-          <h3>filter by:</h3>
           <label htmlFor="state">state, district or territory</label>
           <select name='state'>
             <option value="select" selected>select state</option>
