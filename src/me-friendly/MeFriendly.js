@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
 import Nav from "../Nav";
 import BusAdded from './BusAdded';
 import RevBy from './RevBy';
-import Remember from './Remember';
-import config from "../config";
 import TokenService from "../services/token-service";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -45,7 +42,6 @@ class MeFriendly extends Component {
         <div className="me-friendly">
           <RevBy />
           <BusAdded />
-          <Remember />
           <footer></footer>
         </div>
         

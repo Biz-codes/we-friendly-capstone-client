@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import SearchBus from "./SearchBus";
 
-describe(`SearchBus component`, () => {
+describe.skip(`SearchBus component`, () => {
   it("renders without crashing", () => {
     const div = document.createElement("div");
     ReactDOM.render(

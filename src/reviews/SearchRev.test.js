@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
 import SearchRev from "./SearchRev";
 
-describe(`SearchRev component`, () => {
+describe.skip(`SearchRev component`, () => {
   it("renders without crashing", () => {
     const div = document.createElement("div");
     ReactDOM.render(
