@@ -5,7 +5,7 @@ export default function SearchBus(props)  {
     return (
       <form 
         className="search-form"
-        onSubmit = {props.onHandleSearch}
+        onSubmit = {props.onHandleSearchBus}
       >
         <div className="searchBar">
           <label htmlFor="name">business name:</label>

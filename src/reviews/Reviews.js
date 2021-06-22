@@ -12,9 +12,8 @@ class Reviews extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      businesses: [],
       reviews: [],
-      fullReviews: [],
+      results: []
     };
   }
 
@@ -34,8 +33,8 @@ class Reviews extends Component {
       .then((reviews) => {
         return reviews.sort((a, b) => {
           let result = 0;
-          if (a.date_modified > b.date_modified) return 1;
-          if (a.date_modified < b.date_modified) return -1;
+          if (a.name > b.name) return 1;
+          if (a.name < b.name) return -1;
           return result;
         });
       })
@@ -43,32 +42,140 @@ class Reviews extends Component {
         console.log(reviews)
         this.setState({
           reviews: reviews,
-        });
-      })
-
-      .catch((error) => this.setState({ error }));
-
-    let businessesUrl = `${config.API_ENDPOINT}/businesses`;
-
-    fetch(businessesUrl)
-      .then((businesses) => businesses.json())
-      .then((businesses) => {
-        this.setState({
-          businesses: businesses,
+          results: reviews,
         });
       })
 
       .catch((error) => this.setState({ error }));
   }
 
+  handleSearchRev = (e) => {
+    e.preventDefault();
+
+    const data = {};
+
+    const formData = new FormData(e.target);
+
+    //for each of the keys in form data populate it with form value
+    for (let value of formData) {
+      data[value[0]] = value[1];
+    }
+
+    //check if the state is populated with the search params data
+    // console.log(data)
+
+    let reviews = this.state.reviews;
+    let searchFriendly = data.friendly_for;
+    let searchName = data.name;
+    let searchZip = data.zipcode;
+    let searchState = data.state;
+    let searchCategory = data.category;
+    console.log(reviews)
+    // console.log(searchFriendly, searchName, searchZip, searchState, searchCategory)
+
+    //by default select all the results
+    let response = reviews;
+    let outputFriendly = [];
+    let outputState = [];
+    let outputCategory = [];
+    let outputName = [];
+    let outputZip = [];
+    let filterSelected = 0
+
+    if (searchFriendly != "select") {
+      for (let i = 0; i < response.length; i++) {
+        if (searchFriendly === response[i].friendly_for) {
+          outputFriendly.push(response[i]);
+        }
+      }
+      filterSelected = 1
+    }
+    else {
+      outputFriendly = response
+    }
+    // console.log(filterSelected)
+    // console.log(outputFriendly)
+
+    if (searchName) {
+      for (let i=0; i<outputFriendly.length; i++) {
+        if (outputFriendly[i].name.toLowerCase().indexOf(searchName.toLowerCase()) >= 0) {
+          outputName.push(outputFriendly[i])
+        }
+      } 
+      filterSelected = 1
+    }
+    else {
+      outputName = outputFriendly
+    }
+    // console.log(filterSelected)
+    // console.log(outputName)
+    
+    if(searchZip) {
+      for (let i=0; i<outputName.length; i++) {
+        if(searchZip == outputName[i].zipcode) {
+          outputZip.push(outputName[i])
+        }
+      }
+      filterSelected = 1
+    }
+    else {
+      outputZip = outputName
+    }
+    
+    // console.log(filterSelected)
+    // console.log(outputZip)
+
+    if (searchState != "select") {
+      for (let i = 0; i < outputZip.length; i++) {
+        if (searchState === outputZip[i].state) {
+          outputState.push(outputZip[i]);
+        }
+      }
+      filterSelected = 1
+    }
+    else {
+      outputState = outputZip
+    }
+
+    // console.log(filterSelected)
+    // console.log(outputState)
+
+    if (searchCategory != "select") {
+      for (let i = 0; i < outputState.length; i++) {
+        if (searchCategory === outputState[i].category) {
+          outputCategory.push(outputState[i]);
+        }
+      }
+      filterSelected = 1
+    }
+    else {
+      outputCategory = outputState
+    }
+
+    // console.log(filterSelected)
+    // console.log(outputCategory)
+
+    if (filterSelected == 0) {
+      outputCategory = []
+    }
+
+    // console.log(outputCategory);
+
+    this.setState({
+      results: outputCategory
+    })
+  };
+
+
   render() {
-    const showReviews = this.state.reviews.map((review, key) => {
+    const showReviews = this.state.results.map((review, key) => {
       return (
         <div className="review-item" key={key}>
           {/* I need to figure out how to take the business_id and use it to look up and display the corresponding name and zipcode. I also want to utilize this is sorting and filtering.*/}
-          <h3>{review.name} <RatingStars rating={review.rating} /></h3>
+          <h3>{review.name} </h3>
+          <p>({review.zipcode})</p>
+          <p><RatingStars rating={review.rating} /></p>
           <p>{review.friendly_for} -friendly </p>
-          <p>{review.zipcode}</p>
           <p>{review.review}</p>
           <p>{review.date_modified.slice(0, 10)}</p>
         </div>
@@ -82,12 +189,15 @@ class Reviews extends Component {
             <Nav />
           </div>
           <div className="page-heading">
-            <h2 className="page-title">Search for reviews</h2>
+            <h2 className="page-title">Search for reviews:</h2>
           </div>
         </div>
         <div className="reviews">
           <div className="search">
-            <SearchRev />
+            <SearchRev onHandleSearchRev={(event) => this.handleSearchRev(event)} />
+          </div>
+          <div className="page-heading">
+            <h2>Results:</h2>
           </div>
           <div className="review-items">{showReviews}</div>
           <footer>

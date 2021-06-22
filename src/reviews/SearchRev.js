@@ -1,41 +1,35 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class SearchBus extends Component {
-
-  render() {
-    
+export default function SearchRev(props) {
+   
     return (
       <form 
         className="search-form"
-        onSubmit = {this.props.handleSearch}
+        onSubmit = {props.onHandleSearchRev}
       >
         <div className="searchBar">
-          <label htmlFor="business-name">business name:</label>
+
+          <label htmlFor="friendly_for">-friendly identity:</label>
+          <select name="friendly_for">
+            <option value="select">select -friendly identity</option>
+            <option value="Black, Asian/Pacific Islander, Latinx, and Indigenous persons">Black, Asian/Pacific Islander, Latinx, and Indigenous persons</option>
+            <option value="Disabled persons">Disabled persons</option>
+            <option value="Migrants/Immigrants">Migrants/Immigrants</option>
+            <option value="LGBTQIA+">LGBTQIA+</option>
+            <option value="Women">Women</option>
+          </select>
+
+          <label htmlFor="name">business name:</label>
           <input 
             type="text"
-            name="business-name"
-            required
+            name="name"
           />
           <label htmlFor="zipcode">zipcode:</label>
           <input
             type="text"
             name="zipcode"
           />
-        </div>
-        <div className="filters">
-          <h3>filter by:</h3>
-          <label htmlFor="friendly_for">-friendly identity:</label>
-          <select
-            name="friendly_for"
-          >
-            <option value="select">select -friendly identity</option>
-            <option value="POC">Black, Asian/Pacific Islander, Latinx, and Indigenous persons</option>
-            <option value="disabled-persons">Disabled persons</option>
-            <option value="migrants-immigrants">Migrants/Immigrants</option>
-            <option value="LGBTQIA+">LGBTQIA+</option>
-            <option value="women">Women</option>
-          </select>
-
+          
           <label htmlFor="state">state, district or territory</label>
           <select name='state'>
             <option value="select">select state</option>
@@ -96,7 +90,7 @@ export default class SearchBus extends Component {
             <option value="PR">PR</option>
             <option value="VI">VI</option>
           </select>
-          <label htmlFor="business-type">business/service category:</label>
+          <label htmlFor="category">business/service category:</label>
           <select name="category">
             <option value="select">select category</option>
             <option value="restaurant/bar">restaurant/bar</option>
@@ -112,5 +106,5 @@ export default class SearchBus extends Component {
       </form>
     );
   
-  }
+  
 }

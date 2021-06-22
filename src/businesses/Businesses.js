@@ -49,7 +49,7 @@ class Businesses extends Component {
       .catch((error) => this.setState({ error }));
   }
 
-  handleSearch = (e) => {
+  handleSearchBus = (e) => {
     e.preventDefault();
 
     const data = {};
@@ -94,8 +94,6 @@ class Businesses extends Component {
     // console.log(filterSelected)
     // console.log(outputName)
     
-
-
     if(searchZip) {
       for (let i=0; i<outputName.length; i++) {
         if(searchZip == outputName[i].zipcode) {
@@ -152,43 +150,6 @@ class Businesses extends Component {
     })
   };
 
-
-
-  remember(e) {
-    e.preventDefault();
-
-    const data = {};
-
-    const formData = new FormData(e.target);
-
-    for (let value of formData) {
-      data[value[0]] = value[1];
-    }
-
-    let user_id = TokenService.getUserId();
-
-    let { business_id } = data;
-
-    let payload = {
-      user_id: user_id,
-      business_id: business_id,
-    };
-    console.log(payload);
-
-    fetch(`${config.API_ENDPOINT}/remembered-businesses`, {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: { "content-type": "application/json" },
-    })
-      .then((res) => res.json())
-      // .then((resJson) => {
-      //   window.location = "/me-friendly";
-      // })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
   render() {
     const showBusinesses = this.state.results.map((business, key) => {
       // if (this.state.results == undefined) {
@@ -239,7 +200,7 @@ class Businesses extends Component {
         </div>
         <div className="businesses">
           <div className="search">
-            <SearchBus onHandleSearch={(event) => this.handleSearch(event)} />
+            <SearchBus onHandleSearchBus={(event) => this.handleSearchBus(event)} />
           </div>
           <div className="page-heading">
             <h2>Results:</h2>
