@@ -314,7 +314,7 @@ export default class AddBusiness extends Component {
           )}
           <label htmlFor="website">website:</label>
           <input
-            type="text"
+            type="url"
             id="website"
             name="website"
             onChange={(e) => this.changeWebsite(e.target.value)}

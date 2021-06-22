@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import AddSupply from "./AddSupply";
+import AddBus from "./AddBus";
 
-describe(`AddSupply component`, () => {
+describe(`AddBus component`, () => {
   it("renders without crashing", () => {
     const div = document.createElement("div");
     ReactDOM.render(
       <BrowserRouter>
-        <AddSupply />
+        <AddBus />
       </BrowserRouter>,
       div
     );

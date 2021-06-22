@@ -5,7 +5,8 @@ import config from "../config";
 import TokenService from "../services/token-service";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SearchRev from './SearchRev';
+import SearchRev from "./SearchRev";
+import RatingStars from "./RatingStars";
 
 class Reviews extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class Reviews extends Component {
     this.state = {
       businesses: [],
       reviews: [],
+      fullReviews: [],
     };
   }
 
@@ -38,38 +40,37 @@ class Reviews extends Component {
         });
       })
       .then((reviews) => {
+        console.log(reviews)
         this.setState({
           reviews: reviews,
         });
       })
 
       .catch((error) => this.setState({ error }));
-    
-    // let business_id = review.
-    // let getBusinessByIdUrl = `${config.API_ENDPOINT}/businesses/${business_id}`
 
-    // fetch(getBusinessByIdUrl)
-    //   .then((business) => business.json())
-    //   .then((business) => {
-    //     this.setState({
-    //       business: business
-    //     })
-    //   })
-    
+    let businessesUrl = `${config.API_ENDPOINT}/businesses`;
+
+    fetch(businessesUrl)
+      .then((businesses) => businesses.json())
+      .then((businesses) => {
+        this.setState({
+          businesses: businesses,
+        });
+      })
+
+      .catch((error) => this.setState({ error }));
   }
-  
-
-  
 
   render() {
     const showReviews = this.state.reviews.map((review, key) => {
       return (
         <div className="review-item" key={key}>
-        {/* I need to figure out how to take the business_id and use it to look up and display the corresponding name and zipcode. I also want to utilize this is sorting and filtering.*/}
-          <h3>{review.business_id.name}                        {review.rating}</h3>
-          <p>{review.friendly_for} -friendly        {review.business_id.zipcode}</p>
+          {/* I need to figure out how to take the business_id and use it to look up and display the corresponding name and zipcode. I also want to utilize this is sorting and filtering.*/}
+          <h3>{review.name} <RatingStars rating={review.rating} /></h3>
+          <p>{review.friendly_for} -friendly </p>
+          <p>{review.zipcode}</p>
           <p>{review.review}</p>
-          <p>{review.reviewer_id.username}                {review.date_modified.slice(0, 10)}</p>
+          <p>{review.date_modified.slice(0, 10)}</p>
         </div>
       );
     });
@@ -89,9 +90,12 @@ class Reviews extends Component {
             <SearchRev />
           </div>
           <div className="review-items">{showReviews}</div>
-          <footer><a href='https://www.freepik.com/photos/background'>Background photo created by rawpixel.com - www.freepik.com</a></footer>
+          <footer>
+            <a href="https://www.freepik.com/photos/background">
+              Background photo created by rawpixel.com - www.freepik.com
+            </a>
+          </footer>
         </div>
-        
       </div>
     );
   }

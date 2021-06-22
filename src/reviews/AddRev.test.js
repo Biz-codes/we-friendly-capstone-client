@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import AddTool from "./AddTool";
+import AddRev from "./AddRev";
 
-describe(`AddTool component`, () => {
+describe(`AddRev component`, () => {
   it("renders without crashing", () => {
     const div = document.createElement("div");
     ReactDOM.render(
       <BrowserRouter>
-        <AddTool />
+        <AddRev />
       </BrowserRouter>,
       div
     );

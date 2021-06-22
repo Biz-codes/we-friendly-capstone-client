@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import Reviews from "./Reviews";
+import RatingStars from "./RatingStars";
 
-describe(`Reviews component`, () => {
+describe(`RatingStars component`, () => {
   it("renders without crashing", () => {
     const div = document.createElement("div");
     ReactDOM.render(
       <BrowserRouter>
-        <Reviews />
+        <RatingStars />
       </BrowserRouter>,
       div
     );
