@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Nav from "../Nav";
 import config from "../config";
 import TokenService from "../services/token-service";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faTheaterMasks } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchRev from "./SearchRev";
 import RatingStars from "./RatingStars";
@@ -188,7 +188,9 @@ class Reviews extends Component {
             <Nav />
           </div>
           <div className="page-heading">
-            <h2 className="page-title">Search for reviews:</h2>
+            <h2 className="page-title">
+              <FontAwesomeIcon icon={faTheaterMasks} /> Search for reviews: <FontAwesomeIcon icon={faTheaterMasks} /> 
+            </h2>
           </div>
         </div>
         <div className="reviews">
@@ -196,7 +198,9 @@ class Reviews extends Component {
             <SearchRev onHandleSearchRev={(event) => this.handleSearchRev(event)} />
           </div>
           <div className="page-heading">
-            <h2>Results:</h2>
+            <h2>
+              <FontAwesomeIcon icon={faTheaterMasks} /> Results: <FontAwesomeIcon icon={faTheaterMasks} /> 
+            </h2>
           </div>
           <div className="review-items">{showReviews}</div>
           <div>

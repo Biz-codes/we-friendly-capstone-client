@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Nav from "../Nav";
 import config from "../config";
 import TokenService from "../services/token-service";
-import { faPlus, faParagraph } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faParagraph, faThumbtack } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchBus from "./SearchBus";
 
@@ -187,7 +187,9 @@ class Businesses extends Component {
             <Nav />
           </div>
           <div className="page-heading">
-            <h3>Search for a business or service:</h3>
+            <h3>
+              <FontAwesomeIcon icon={faThumbtack} /> Search for a business or service: <FontAwesomeIcon icon={faThumbtack} /> 
+            </h3>
           </div>
         </div>
         <div className="businesses">
@@ -195,7 +197,9 @@ class Businesses extends Component {
             <SearchBus onHandleSearchBus={(event) => this.handleSearchBus(event)} />
           </div>
           <div className="page-heading">
-            <h2>Results:</h2>
+            <h2>
+              <FontAwesomeIcon icon={faThumbtack}/> Results: <FontAwesomeIcon icon={faThumbtack} /> 
+            </h2>
           </div>
 
           <div className="business-items">{showBusinesses}</div>
@@ -210,7 +214,7 @@ class Businesses extends Component {
 
         <footer>
           <a href="https://www.freepik.com/photos/paper">
-            Paper photo created by jcomp - www.freepik.com
+            Paper photo created by jcomp
           </a>
         </footer>
       </div>

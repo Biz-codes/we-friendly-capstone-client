@@ -3,7 +3,7 @@ import Nav from "../Nav";
 import BusAdded from './BusAdded';
 import RevBy from './RevBy';
 import TokenService from "../services/token-service";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faFingerprint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class MeFriendly extends Component {
@@ -36,13 +36,17 @@ class MeFriendly extends Component {
             <Nav />
           </div>
           <div className="page-heading">
-            <h2 className="logo">me - friendly</h2>
+            <h2 className="logo">
+              <FontAwesomeIcon icon={faFingerprint} />  me - friendly <FontAwesomeIcon icon={faFingerprint} /> 
+            </h2>
           </div>
         </div>
         <div className="me-friendly">
           <RevBy />
           <BusAdded />
-          <footer></footer>
+          <footer>
+            <a href="https://www.freepik.com/freepik">photo created by freepik</a>
+          </footer>
         </div>
         
       </div>

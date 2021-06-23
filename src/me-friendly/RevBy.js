@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import config from "../config";
 import TokenService from "../services/token-service";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt, faRecycle, faFingerprint, faTheaterMasks } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import RatingStars from '../reviews/RatingStars'
 
@@ -144,7 +144,7 @@ class RevBy extends Component {
                     defaultValue={review.id}
                 ></input>
                 <button type="submit" className="delete">
-                    delete
+                <FontAwesomeIcon icon = {faRecycle} /> delete
                 </button>
             </form>
             <NavLink to={{ pathname: "/edit-review", review_id: review.id }}>
@@ -159,7 +159,9 @@ class RevBy extends Component {
 
     return (
       <div className="reviews-by-me">
-        <h3 className="my-rev-heading">reviews by me</h3>
+        <h3 className="my-rev-heading">
+          <FontAwesomeIcon icon={faTheaterMasks} /> reviews by me <FontAwesomeIcon icon={faFingerprint} /> 
+        </h3>
         <div className="reviews">
           <div className="review-items">{showReviewsByMe}</div>
           <footer></footer>

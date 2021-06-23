@@ -148,7 +148,7 @@ export default class AddBusiness extends Component {
 
   componentDidMount() {
     let currentUser = TokenService.getUserId();
-    // console.log(currentUser);
+    console.log(currentUser);
 
     //if the user is not logged in, send to landing page
     if (!TokenService.hasAuthToken()) {
@@ -182,7 +182,7 @@ export default class AddBusiness extends Component {
       website: website
 
     };
-    console.log(payload)
+    // console.log(payload)
 
     fetch(`${config.API_ENDPOINT}/businesses`, {
       method: "POST",

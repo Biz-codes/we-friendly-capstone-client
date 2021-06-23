@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import config from "../config";
 import TokenService from "../services/token-service";
-import { faPlus, faParagraph, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faParagraph, faPencilAlt, faFingerprint, faThumbtack } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class BusAdded extends Component {
@@ -75,7 +75,9 @@ class BusAdded extends Component {
     return (
       <div className="businesses-added-by-me">
         <div className="businesses">
-            <h3 className="my-bus-heading">businesses added by me</h3>
+            <h3 className="my-bus-heading">
+            <FontAwesomeIcon icon={faThumbtack} /> businesses added by me <FontAwesomeIcon icon={faFingerprint} /> 
+            </h3>
             <div className="business-items">          
                 {showBusinessesAddedByMe}
             </div>        

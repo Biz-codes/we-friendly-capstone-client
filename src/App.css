@@ -295,7 +295,7 @@ button.login-button {
 
 .my-bus-heading {
   background-color: #009300;
-  color: #e2e2e2;
+  color: #fcfcfc;
   border: 2px solid #0E2844;
   border-radius: 5px;
   width: 98%;
@@ -311,11 +311,11 @@ button.login-button {
 
 .nav-icons li {
   padding: 10px;
-  color: #e2e2e2;
+  color: #fcfcfc;
 }
 
 .nav-icons li a {
-  color: #e2e2e2;
+  color: #fcfcfc;
 }
 
 .nav-icons li a:hover {
@@ -586,6 +586,12 @@ This is the ideal way to built websites because it is much easier to adapt from 
     flex-direction: row;
   }
 
+  button {
+    width: 100px;
+    height: 8vh;
+    font-size: 14px;
+  }
+
   .nav-icons {
     flex-direction: row;
     justify-content: space-between;
@@ -617,6 +623,7 @@ This is the ideal way to built websites because it is much easier to adapt from 
   button {
     width: 150px;
     font-size: 22px;
+    height: auto
   }
 
   button.demo-button,

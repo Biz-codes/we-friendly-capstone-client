@@ -45,10 +45,21 @@ export default class AddReview extends Component {
     });
   }
 
+  validateFriendlyFor() {
+    const friendly_for = this.state.friendly_for.trim();
+    if (friendly_for == "select") {
+      return <p className="input-error">-friendly identity is required</p>
+    }
+  }
+
   validateRating() {
     const rating = this.state.rating.value.trim();
     if (rating.length === 0) {
-      return <p className="input-error">rating is required</p>;
+      return <p className="input-error">rating is required</p>
+    } else if (rating < 1 || rating > 5) {
+        return (
+          <p className="input-error">rating must be from 1 to 5</p>
+        )
     }
   }
 
@@ -148,12 +159,16 @@ export default class AddReview extends Component {
             onChange={(e) => this.changeFriendlyFor(e.target.value)}
             required
           >
+            <option value="select" defaultValue>select a -friendly identity</option>
             <option value="Black, Asian/Pacific Islander, Latinx, and Indigenous persons">Black, Asian/Pacific Islander, Latinx, and Indigenous persons</option>
             <option value="Disabled persons">Disabled persons</option>
             <option value="Migrants/Immigrants">Migrants/Immigrants</option>
             <option value="LGBTQIA+">LGBTQIA+</option>
             <option value="women">Women</option>
           </select>
+          {this.state.friendly_for.touched && (
+            <ValidationError message={this.validateFriendlyFor()} />
+          )}
           <label htmlFor="rating">rating:</label>
           <input
             type="number"
