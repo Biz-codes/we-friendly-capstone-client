@@ -286,7 +286,7 @@ button.login-button {
 }
 
 .my-rev-heading {
-  background-color: #f2b305;
+  background-color: #FCD054;
   border: 2px solid #0E2844;
   border-radius: 5px;
   width: 98%;
@@ -294,7 +294,7 @@ button.login-button {
 }
 
 .my-bus-heading {
-  background-color: #009300;
+  background-color: #2A6024;
   color: #fcfcfc;
   border: 2px solid #0E2844;
   border-radius: 5px;
@@ -443,11 +443,12 @@ button.login-button {
 }
 
 .business-item {
-  border: 3px solid #009300;
+  border: 5px solid #2A6024;
 }
 
 .review-item {
-  border: 3px solid #f2b305;
+  border: 5px solid #FCD054;
+  /* #f2b305; */
   color: #e2e2e2;
   background-color: #0E2844;
   /* background-color: #f5e6db; */
