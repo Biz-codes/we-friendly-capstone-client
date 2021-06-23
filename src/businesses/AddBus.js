@@ -354,7 +354,6 @@ export default class AddBusiness extends Component {
               <FontAwesomeIcon icon={faSave} /> Save
             </button>
           </div>
-          <input type="submit" className="hidden"></input>
         </form>
       </div>
     );
