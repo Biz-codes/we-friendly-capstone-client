@@ -46,7 +46,7 @@ export default class AddReview extends Component {
   }
 
   validateFriendlyFor() {
-    const friendly_for = this.state.friendly_for.trim();
+    const friendly_for = this.state.friendly_for;
     if (friendly_for == "select") {
       return <p className="input-error">-friendly identity is required</p>
     }
