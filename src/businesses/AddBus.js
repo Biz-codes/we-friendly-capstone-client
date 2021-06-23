@@ -328,18 +328,18 @@ export default class AddBusiness extends Component {
             onChange={(e) => this.changeZipcode(e.target.value)}
             required
           />
-          {this.state.address.touched && (
+          {this.state.zipcode.touched && (
             <ValidationError message={this.validateZipcode()} />
           )}
           <label htmlFor="website">website:</label>
           <input
-            type="url"
+            type="text"
             id="website"
             name="website"
             onChange={(e) => this.changeWebsite(e.target.value)}
             required
           />
-          {this.state.address.touched && (
+          {this.state.website.touched && (
             <ValidationError message={this.validateWebsite()} />
           )}
           
