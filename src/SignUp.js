@@ -10,6 +10,7 @@ export default class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      error: '',
       name: {
         value: "",
         touched: false,
@@ -131,11 +132,15 @@ export default class SignUp extends Component {
       })
 
       .catch((res) => {
-        this.setState({ error: res.error });
+        this.setState({ error: "Username already taken." });
       });
   };
 
   render() {
+    let errorOutput = "";
+    if (this.state.error) {
+      errorOutput = this.state.error
+    }
     return (
       <div className="sign-up">
         <h2>Create an account!</h2>
@@ -201,21 +206,22 @@ export default class SignUp extends Component {
           {this.state.repeatPassword.touched && (
             <ValidationError message={this.validateRepeatPassword()} />
           )}
+          <div className="input-error">
+            {errorOutput}
+          </div>
             <div className="buttons">
           <NavLink to="/">
             <button>
-              <FontAwesomeIcon icon={faStepBackward} /> Cancel
+              <FontAwesomeIcon icon={faStepBackward} /> cancel
             </button>
           </NavLink>
           <button type="submit" disabled={this.state.submitButtonDisabled}>
-            <FontAwesomeIcon icon={faDoorOpen} /> Submit
+            <FontAwesomeIcon icon={faDoorOpen} /> submit
           </button> 
           
           </div>
           <NavLink to="/users/login">Already have an account?</NavLink>
-          <div>
-            <input type="submit" className="hidden"></input>
-          </div>
+          
         </form>
         
       </div>

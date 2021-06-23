@@ -193,6 +193,10 @@ h3 {
   visibility: hidden;
 }
 
+.input-error {
+  color: #8A150A;
+}
+
 /* -------------------------------------
 Content styles (Main Module)
 */
@@ -491,7 +495,7 @@ This is the ideal way to built websites because it is much easier to adapt from 
 */
 
 /*iPhone portrait*/
-@media only screen and (min-width: 320px) {
+@media only screen and (min-width: 310px) {
   body {
     /* border: 3px solid purple; */
     font-size: 16px;

@@ -19,7 +19,7 @@ export default class LogIn extends Component {
         touched: false,
       },
       LogInUserID: 0,
-      error: null,
+      error: "",
     };
   }
 
@@ -67,11 +67,21 @@ export default class LogIn extends Component {
 
   loginUser = (event) => {
     event.preventDefault();
-    const { username, password } = event.target;
+    //get the input from the form submission
+    const data = {};
+    //get the payload from the form submission
+    const formData = new FormData(event.target);
+    for (let value of formData) {
+      data[value[0]] = value[1];
+    }
+    // console.log(data);
+    let { username, password } = data;
     // console.log("username:", username.value, "password:", password.value);
+
+    this.setState({ error: null });
     AuthApiService.postLogin({
-      username: username.value,
-      password: password.value,
+      username: username,
+      password: password,
     })
 
       .then((response) => {
@@ -79,13 +89,16 @@ export default class LogIn extends Component {
         TokenService.saveUserId(response.userId);
         window.location = "/reviews";
       })
-      .catch((err) => {
-        console.log(err);
-        return err;
+      .catch((res) => {
+        this.setState({ error: "Incorrect username and/or password." });
       });
   };
 
   render() {
+    let errorOutput = "";
+    if (this.state.error) {
+      errorOutput = this.state.error
+    }
     return (
       <div className="log-in">
         <h2>Log into your account!</h2>
@@ -127,6 +140,9 @@ export default class LogIn extends Component {
           {this.state.password.touched && (
             <ValidationError message={this.validatePassword()} />
           )}
+          <div className="input-error">
+            {errorOutput}
+          </div>
             <div className="buttons">
           <NavLink to="/">
             <button>

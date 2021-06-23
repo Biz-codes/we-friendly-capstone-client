@@ -47,7 +47,7 @@ class App extends Component {
               </li>
               <li>
                 <a
-                  href="www.linkedin.com/in/elizabeth-biz-hight"
+                  href="https://www.linkedin.com/in/elizabeth-biz-hight/"
                   target="_blank"
                 >
                   <FontAwesomeIcon icon={faLinkedin} className="contact-icon" />
