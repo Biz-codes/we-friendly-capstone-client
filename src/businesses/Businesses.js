@@ -140,7 +140,7 @@ class Businesses extends Component {
     // console.log(outputCategory)
 
     if (filterSelected == 0) {
-      outputCategory = null
+      outputCategory = []
     }
 
     // console.log(outputCategory);
@@ -153,11 +153,6 @@ class Businesses extends Component {
   render() {
     const showBusinesses = this.state.results.map((business, key) => {
       let addReviewUrl = `/add-review/${business.id}`
-      // if (this.state.results == undefined) {
-      //   return (
-      //     <p>Sorry, we couldn't find anything. Try different search terms, or click [+ add a business]</p>
-      //   )
-      // } else {
         return (
         <div className="business-item" key={key}>
           <h3>{business.name}</h3>

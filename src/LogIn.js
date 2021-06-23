@@ -140,13 +140,9 @@ export default class LogIn extends Component {
           </div>
           
           <NavLink to="/signup">Need to create an account?</NavLink>
-          {/* <div>
-            <input type="submit" className="hidden"></input>
-          </div> */}
           
-        </form>
-
-        
+          
+        </form>      
       </div>
     );
   }

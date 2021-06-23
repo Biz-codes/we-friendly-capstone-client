@@ -7,20 +7,25 @@ import { faSave, faStepBackward } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default class EditRev extends Component {
-  state = {
-    friendly_for: {
-      value: "",
-      touched: false,
-    },
-    rating: {
-      value: "",
-      touched: false,
-    },
-    review: {
-      value: "",
-      touched: false,
-    },
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      existingReview: [],
+      friendly_for: {
+        value: "",
+        touched: false,
+      },
+      rating: {
+        value: "",
+        touched: false,
+      },
+      review: {
+        value: "",
+        touched: false,
+      },
+    };
+  }
+  
 
   changeFriendlyFor(friendly_for) {
     this.setState({
@@ -40,10 +45,21 @@ export default class EditRev extends Component {
     });
   }
 
+  validateFriendlyFor() {
+    const friendly_for = this.state.friendly_for.trim();
+    if (friendly_for == "select") {
+      return <p className="input-error">-friendly identity is required</p>
+    }
+  }
+
   validateRating() {
     const rating = this.state.rating.value.trim();
     if (rating.length === 0) {
-      return <p className="input-error">rating is required</p>;
+      return <p className="input-error">rating is required</p>
+    } else if (rating < 1 || rating > 5) {
+        return (
+          <p className="input-error">rating must be from 1 to 5</p>
+        )
     }
   }
 
@@ -62,37 +78,29 @@ export default class EditRev extends Component {
 
   componentDidMount() {
     let currentUser = TokenService.getUserId();
-    // console.log(currentUser);
+    console.log(currentUser);
 
     //if the user is not logged in, send him to landing page
     if (!TokenService.hasAuthToken()) {
       window.location = "/";
     }
 
-    let review_id = this.props.location.tool_id;
+    let review_id = this.props.match.params.review_id;
 
-    let getReviewSpecsUrl = `${config.API_ENDPOINT}/reviews/${review_id}`;
-
-    fetch(getReviewSpecsUrl)
+    fetch(`${config.API_ENDPOINT}/reviews/${review_id}`, {
+      headers: {"content-type": "application/json" },
+    })
       .then((res) => res.json())
-      .then(({ friendly_for, rating, review }) => {
+      .then((resJson) => {
+        console.log(resJson)
         this.setState({
-          friendly_for: {
-            value: friendly_for,
-            touched: this.state.friendly_for.touched,
-          },
-          rating: { 
-            value: rating, 
-            touched: this.state.rating.touched 
-          },
-          review: { 
-            value: review, 
-            touched: this.state.quantity.touched 
-          },
+          existingReview: resJson,
         });
       })
+      .catch((err) => {
+        console.log(err);
+      });
 
-      .catch((error) => this.setState({ error }));
   }
 
   updateReview = (event) => {
@@ -108,25 +116,27 @@ export default class EditRev extends Component {
 
     let reviewer_id = TokenService.getUserId();
 
-    let { friendly_for, rating, review } = data;
+    let { business_id, friendly_for, rating, review } = data;
 
     let payload = {
       reviewer_id: reviewer_id,
+      business_id: business_id,
       friendly_for: friendly_for,
       rating: rating,
       review: review,
     };
     // console.log(payload);
-    console.log(this.props.location.review_id)
+    
 
-    fetch(`${config.API_ENDPOINT}/tools/${this.props.location.review_id}`, {
+    fetch(`${config.API_ENDPOINT}/reviews/${this.props.match.params.review_id}`, {
       method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
       body: JSON.stringify(payload),
+      headers: {"content-type": "application/json"},
+      
     })
-      .then(() => {
+      .then((res) => res.json())
+      .then((resJson) => {
+        console.log(resJson)
         window.location = "/me-friendly";
       })
       .catch((err) => {
@@ -135,31 +145,67 @@ export default class EditRev extends Component {
   };
 
   render() {
-    let showReviewSpecs = "";
-    showReviewSpecs = (
+    console.log(this.state.existingReview)
+    return (
       <div className="edit-review">
         <form className="edit-review-form" onSubmit={this.updateReview}>
-          <h3>Edit your review of (business_name, business_zip)</h3>
+          <h3>Edit your review: </h3>
           <label htmlFor="friendly_for">-friendly identity:</label>
           <select
             id="friendly_for"
             name="friendly_for"
-            value={this.state.friendly_for.value}
+            defaultValue={this.state.existingReview.friendly_for}
             onChange={(e) => this.changeFriendlyFor(e.target.value)}
             required
           >
-            <option value="Black, Asian/Pacific Islander, Latinx, and Indigenous persons">Black, Asian/Pacific Islander, Latinx, and Indigenous persons</option>
-            <option value="Disabled persons">Disabled persons</option>
-            <option value="Migrants/Immigrants">Migrants/Immigrants</option>
-            <option value="LGBTQIA+">LGBTQIA+</option>
-            <option value="Women">Women</option>
+            <option value="select" disabled>select a -friendly identity</option>
+            {this.state.existingReview.friendly_for == "Black, Asian/Pacific Islander, Latinx, and Indigenous persons" ? (
+              <option value="Black, Asian/Pacific Islander, Latinx, and Indigenous persons" selected>
+                Black, Asian/Pacific Islander, Latinx, and Indigenous persons
+              </option>
+            ) : (
+              <option value="Black, Asian/Pacific Islander, Latinx, and Indigenous persons">Black, Asian/Pacific Islander, Latinx, and Indigenous persons</option>
+            )}
+
+            {this.state.existingReview.friendly_for == "Disabled persons" ? (
+              <option value="Disabled persons" selected>
+              Disabled persons
+              </option>
+            ) : (
+              <option value="Disabled persons">Disabled persons</option>
+            )}
+
+            {this.state.existingReview.friendly_for == "Migrants/Immigrants" ? (
+              <option value="Migrants/Immigrants" selected>
+              Migrants/Immigrants
+              </option>
+            ) : (
+              <option value="Migrants/Immigrants">Migrants/Immigrants</option>
+            )}
+
+            {this.state.existingReview.friendly_for == "LGBTQIA+" ? (
+              <option value="LGBTQIA+" selected>
+              LGBTQIA+
+              </option>
+            ) : (
+              <option value="LGBTQIA+">LGBTQIA+</option>
+            )}
+
+            {this.state.existingReview.friendly_for == "Women" ? (
+              <option value="Women" selected>
+              Women
+              </option>
+            ) : (
+              <option value="Women">Women</option>
+            )}
+
           </select>
           <label htmlFor="rating">rating:</label>
           <input
             type="number"
             id="rating"
             name="rating"
-            value={this.state.rating.value}
+            defaultValue={this.state.existingReview.rating}
             onChange={(e) => this.changeRating(e.target.value)}
             required
           />
@@ -171,7 +217,7 @@ export default class EditRev extends Component {
             type="text"
             id="review"
             name="review"
-            value={this.state.review.value}
+            defaultValue={this.state.existingReview.review}
             onChange={(e) => this.changeReview(e.target.value)}
             required
           />
@@ -188,11 +234,11 @@ export default class EditRev extends Component {
               <FontAwesomeIcon icon={faSave} /> save
             </button>
           </div>
-          <input type="submit" className="hidden"></input>
+          {/* <input type="hidden" name="review_id" defaultValue={this.state.existingReview.id}></input> */}
+          <input type="hidden" name="business_id" defaultValue={this.state.existingReview.business_id}></input>
         </form>
       </div>
     );
 
-    return <div>{showReviewSpecs}</div>;
   }
 }

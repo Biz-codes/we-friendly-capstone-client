@@ -11,66 +11,18 @@ class RevBy extends Component {
     super(props);
     this.state = {
       reviews: [],
-      myReviews: [],
-      // currentUser: 0,
     };
   }
 
   componentDidMount() {
     let currentUser = TokenService.getUserId();
-    // console.log(currentUser)
-    // this.setState({
-    //   currentUser: currentUser
-    // })
 
     //if the user is not logged in, send him to landing page
     if (!TokenService.hasAuthToken()) {
       window.location = "/";
     }
 
-    // let reviewsUrl = `${config.API_ENDPOINT}/reviews`;
-
-    // fetch(reviewsUrl)
-    //   .then((reviews) => reviews.json())
-    //   .then((reviews) => {
-    //     return reviews.sort((a, b) => {
-    //       let result = 0;
-    //       if (a.name > b.name) return 1;
-    //       if (a.name < b.name) return -1;
-    //       return result;
-    //     });
-    //   })
-    //   .then((reviews) => {
-    //     console.log(reviews)
-    //     this.setState({
-    //       reviews: reviews,
-    //     });
-    //   })
-
-    //   .catch((error) => this.setState({ error }));
-
-
-
-
-    //   let reviews = this.state.reviews;
-    // // // let reviewer = this.state.currentUser;
-    // console.log(reviews)
-    // // console.log(reviewer)
-
-    // let response = reviews;
-    // let myReviews = []
-
-    // for (let i=0; i<response.length; i++) {
-    //   if (currentUser == response[i].reviewer_id) {
-    //     myReviews.push(response[i])
-    //   } else {myReviews = []
-    // }
-    // }
-
-    // console.log(myReviews)
-    // this.setState({
-    //   myReviews: myReviews
-    // })
+    
     let reviewsByMeUrl = `${config.API_ENDPOINT}/reviews/written-by-me/${currentUser}`;
 
     fetch(reviewsByMeUrl)
@@ -127,9 +79,9 @@ class RevBy extends Component {
   render() {
 
     const showReviewsByMe = this.state.reviews.map((review, key) => {
+      let editReviewUrl = `/edit-review/${review.id}`
       return (
         <div className="review-item" key={key}>
-        {/* I need to figure out how to take the business_id and use it to look up and display the corresponding name and zipcode. I also want to utilize this is sorting and filtering.*/}
           <h3>{review.name} </h3>
           <p>({review.category}, {review.zipcode})</p>
           <p><RatingStars rating={review.rating} /></p>
@@ -147,7 +99,7 @@ class RevBy extends Component {
                 <FontAwesomeIcon icon = {faRecycle} /> delete
                 </button>
             </form>
-            <NavLink to={{ pathname: "/edit-review", review_id: review.id }}>
+            <NavLink to={{ pathname: editReviewUrl }}>
               <button>
                 <FontAwesomeIcon icon = {faPencilAlt} /> edit
               </button>

@@ -194,15 +194,14 @@ export default class AddReview extends Component {
           <div className="buttons">
             <NavLink to="/businesses">
               <button>
-                <FontAwesomeIcon icon={faStepBackward} /> Cancel
+                <FontAwesomeIcon icon={faStepBackward} /> cancel
               </button>
             </NavLink>
             <button type="submit">
-              <FontAwesomeIcon icon={faSave} /> Save
+              <FontAwesomeIcon icon={faSave} /> save
             </button>
           </div>
           <input type="hidden" name="business_id" defaultValue={this.state.existingBusiness.id}></input>
-          <input type="submit" className="hidden"></input>
         </form>
       </div>
     );

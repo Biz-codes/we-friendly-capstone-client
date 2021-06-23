@@ -382,7 +382,6 @@ export default class EditBus extends Component {
               <FontAwesomeIcon icon={faSave} /> save
             </button>
           </div>
-          <input type="submit" className="hidden"></input>
         </form>
       </div>
     );
