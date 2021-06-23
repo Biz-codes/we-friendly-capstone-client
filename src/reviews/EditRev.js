@@ -117,6 +117,7 @@ export default class EditRev extends Component {
       review: review,
     };
     // console.log(payload);
+    console.log(this.props.location.review_id)
 
     fetch(`${config.API_ENDPOINT}/tools/${this.props.location.review_id}`, {
       method: "PATCH",
@@ -126,7 +127,7 @@ export default class EditRev extends Component {
       body: JSON.stringify(payload),
     })
       .then(() => {
-        window.location = "/tools";
+        window.location = "/me-friendly";
       })
       .catch((err) => {
         console.log(err);
@@ -147,11 +148,11 @@ export default class EditRev extends Component {
             onChange={(e) => this.changeFriendlyFor(e.target.value)}
             required
           >
-            <option value="POC">Black, Asian/Pacific Islander, Latinx, and Indigenous persons</option>
-            <option value="disabled-persons">Disabled persons</option>
-            <option value="migrants-immigrants">Migrants/Immigrants</option>
+            <option value="Black, Asian/Pacific Islander, Latinx, and Indigenous persons">Black, Asian/Pacific Islander, Latinx, and Indigenous persons</option>
+            <option value="Disabled persons">Disabled persons</option>
+            <option value="Migrants/Immigrants">Migrants/Immigrants</option>
             <option value="LGBTQIA+">LGBTQIA+</option>
-            <option value="women">Women</option>
+            <option value="Women">Women</option>
           </select>
           <label htmlFor="rating">rating:</label>
           <input
@@ -178,13 +179,13 @@ export default class EditRev extends Component {
             <ValidationError message={this.validateReview()} />
           )}
           <div className="buttons">
-            <NavLink to="/tools">
+            <NavLink to="/me-friendly">
               <button>
-                <FontAwesomeIcon icon={faStepBackward} /> Cancel
+                <FontAwesomeIcon icon={faStepBackward} /> cancel
               </button>
             </NavLink>
             <button type="submit">
-              <FontAwesomeIcon icon={faSave} /> Save
+              <FontAwesomeIcon icon={faSave} /> save
             </button>
           </div>
           <input type="submit" className="hidden"></input>

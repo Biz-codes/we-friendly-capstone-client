@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Nav from "../Nav";
 import config from "../config";
 import TokenService from "../services/token-service";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchRev from "./SearchRev";
 import RatingStars from "./RatingStars";
@@ -19,7 +19,7 @@ class Reviews extends Component {
 
   componentDidMount() {
     let currentUser = TokenService.getUserId();
-    // console.log(currentUser)
+    console.log(currentUser)
 
     //if the user is not logged in, send him to landing page
     if (!TokenService.hasAuthToken()) {
@@ -39,7 +39,7 @@ class Reviews extends Component {
         });
       })
       .then((reviews) => {
-        console.log(reviews)
+        // console.log(reviews)
         this.setState({
           reviews: reviews,
           results: reviews,
@@ -70,7 +70,7 @@ class Reviews extends Component {
     let searchZip = data.zipcode;
     let searchState = data.state;
     let searchCategory = data.category;
-    console.log(reviews)
+    // console.log(reviews)
     // console.log(searchFriendly, searchName, searchZip, searchState, searchCategory)
 
     //by default select all the results
@@ -171,9 +171,8 @@ class Reviews extends Component {
     const showReviews = this.state.results.map((review, key) => {
       return (
         <div className="review-item" key={key}>
-          {/* I need to figure out how to take the business_id and use it to look up and display the corresponding name and zipcode. I also want to utilize this is sorting and filtering.*/}
           <h3>{review.name} </h3>
-          <p>({review.zipcode})</p>
+          <p>({review.category}, {review.zipcode})</p>
           <p><RatingStars rating={review.rating} /></p>
           <p>{review.friendly_for} -friendly </p>
           <p>{review.review}</p>
@@ -200,6 +199,14 @@ class Reviews extends Component {
             <h2>Results:</h2>
           </div>
           <div className="review-items">{showReviews}</div>
+          <div>
+            <NavLink to="/businesses">
+              <button className="big-button">
+                <FontAwesomeIcon icon={faSearch} /> find or add a business to write a review
+              </button>
+            </NavLink>
+          </div>
+
           <footer>
             <a href="https://www.freepik.com/photos/background">
               Background photo created by rawpixel.com - www.freepik.com

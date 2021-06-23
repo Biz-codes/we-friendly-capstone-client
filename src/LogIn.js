@@ -81,6 +81,7 @@ export default class LogIn extends Component {
       })
       .catch((err) => {
         console.log(err);
+        return err;
       });
   };
 
@@ -100,7 +101,7 @@ export default class LogIn extends Component {
             about the lived experiences of other folx. Basically, I agree to contribute
             to making we-friendly a safe space.
           </p>
-          <label for="agree"></label>
+          <label htmlFor="agree"></label>
           <input type="checkbox" required/>
           <label htmlFor="username">username:</label>
           <input
@@ -137,10 +138,11 @@ export default class LogIn extends Component {
           </button>
           
           </div>
+          
           <NavLink to="/signup">Need to create an account?</NavLink>
-          <div>
+          {/* <div>
             <input type="submit" className="hidden"></input>
-          </div>
+          </div> */}
           
         </form>
 

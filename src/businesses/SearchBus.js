@@ -20,7 +20,7 @@ export default function SearchBus(props)  {
           />
           <label htmlFor="state">state, district or territory</label>
           <select name='state'>
-            <option value="select" selected>select state</option>
+            <option value="select" defaultValue>select state</option>
             <option value="AK">AK</option>
             <option value="AL">AL</option>
             <option value="AR">AR</option>
@@ -80,7 +80,7 @@ export default function SearchBus(props)  {
           </select>
           <label htmlFor="category">business/service category:</label>
           <select name="category">
-            <option value="select">select category</option>
+            <option value="select" defaultValue>select category</option>
             <option value="restaurant/bar">restaurant/bar</option>
             <option value="shopping">shopping</option>
             <option value="hotel/accommodations">hotel/accommodations</option>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import config from "../config";
 import TokenService from "../services/token-service";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faParagraph, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class BusAdded extends Component {
@@ -48,6 +48,7 @@ class BusAdded extends Component {
 
   render() {
     const showBusinessesAddedByMe = this.state.businesses.map((business, key) => {
+      let addReviewUrl = `/add-review/${business.id}`
       return (
         <div className="business-item" key={key}>
           <h3>{business.name}</h3>
@@ -55,13 +56,16 @@ class BusAdded extends Component {
           <p>{business.address}</p>
           <p>{business.city}, {business.state} {business.zipcode}</p>
           <p>{business.website}</p>
-          <p>reviews</p>
           <div className="buttons">
-            <NavLink to={{ pathname: "/add-review", business_id: business.id }}>
-              <button>write a review</button>
+            <NavLink to={{ pathname: addReviewUrl }}>
+              <button>
+                <FontAwesomeIcon icon = {faParagraph} /> write a review
+              </button>
             </NavLink>
             <NavLink to={{ pathname: "/edit-business", business_id: business.id }}>
-              <button>edit details</button>
+              <button>
+                <FontAwesomeIcon icon = {faPencilAlt} /> edit details
+              </button>
             </NavLink>
           </div>
         </div>
@@ -71,7 +75,7 @@ class BusAdded extends Component {
     return (
       <div className="businesses-added-by-me">
         <div className="businesses">
-            <h3>businesses added by me</h3>
+            <h3 className="my-bus-heading">businesses added by me</h3>
             <div className="business-items">          
                 {showBusinessesAddedByMe}
             </div>        

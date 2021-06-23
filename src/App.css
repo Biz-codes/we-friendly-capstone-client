@@ -69,18 +69,18 @@ font-family: 'Catamaran', sans-serif;*/
 body {
   font-family: "Spectral", serif;
   font-size: 20px;
-  color: #133457;
+  color: #0E2844;
   font-weight: bold;
-  background-color: #e2e2e2;
+  background-color: #f7f7f7;
   text-align: center;
   line-height: 1.5;
   height: auto;
-  border: 3px solid #e2e2e2;
+  border: 3px solid #f7f7f7;
 }
 
 a {
   text-decoration: none;
-  color: #133457;
+  color: #0E2844;
 }
 
 a:hover {
@@ -105,11 +105,11 @@ h4 {
 input,
 select,
 button {
-  border: 2px solid #133457;
+  border: 2px solid #0E2844;
   padding: 10px;
   margin: 5px;
   border-radius: 5px;
-  color: black;
+  color: 0E2844;
   font-family: "Spectral", serif;
   font-size: 100%;
 }
@@ -121,7 +121,7 @@ button {
 
 button {
   width: 125px;
-  background-color: #478294;
+  background-color: #87BDC5;
   font-size: 150%;
 }
 
@@ -131,16 +131,8 @@ select {
 }
 
 button:hover {
-  color: #bd1e0f;
+  color: #8A150A;
 }
-
-/* button[type="submit"] {
-  border: 2px solid #133457;
-}
-
-button[type="submit"]:hover {
-  color: #bd1e0f;
-} */
 
 label {
   display: block;
@@ -180,7 +172,7 @@ header {
 }
 
 header h1 {
-  color: #478294;
+  color: #325D67;
   margin-top: 10px;
   font-size: 200%;
 }
@@ -259,12 +251,16 @@ div.landing-buttons {
 button.signup-button, 
 button.demo-button,
 button.login-button {
-  background-color: #478294;
   height: 15vh;
   width: 200px;
   padding: 10px;
   font-size: 150%;
   border-radius: 10px;
+}
+
+.big-button {
+  width: 40%;
+  height: auto;
 }
 
 /* Dashboard, Supplies, Tools, and Projects pages */
@@ -282,11 +278,28 @@ button.login-button {
   margin-bottom: 0;
   padding: 20px;
   /* border: 2px solid #13498a; */
-  background-color: #478294;
-  color: #e2e2e2;
+  background-color: #325D67;
+  color: #fcfcfc;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
+}
+
+.my-rev-heading {
+  background-color: #f2b305;
+  border: 2px solid #0E2844;
+  border-radius: 5px;
+  width: 98%;
+  padding: 10px;
+}
+
+.my-bus-heading {
+  background-color: #009300;
+  color: #e2e2e2;
+  border: 2px solid #0E2844;
+  border-radius: 5px;
+  width: 98%;
+  padding: 10px;
 }
 
 .nav-icons {
@@ -374,6 +387,34 @@ button.login-button {
   position: relative;
 }
 
+.me-friendly-page {
+  position: relative;
+  /* height: 200vh; */
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+  /* margin: 10px; */
+}
+
+.me-friendly-page::before{
+  content: "";
+  background-image: url(business-desktop-with-office-elements.jpg);
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  border-radius: 20px;
+}
+
+.me-friendly {
+  position: relative;
+}
+
 .add-business-form,
 .edit-business-form,
 .add-review-form,
@@ -406,7 +447,10 @@ button.login-button {
 }
 
 .review-item {
-  border: 3px solid #f28705;
+  border: 3px solid #f2b305;
+  color: #e2e2e2;
+  background-color: #0E2844;
+  /* background-color: #f5e6db; */
 }
 
 /* -------------------------------------
@@ -418,7 +462,7 @@ footer {
   margin-top: 30px;
   margin-bottom: 15px;
   border: 0px;
-  color: #478294;
+  color: #325D67;
   font-size: 75%;
 }
 
@@ -432,7 +476,7 @@ footer ul li {
 footer a {
   bottom: 30px;
   right: 30px;
-  color: #478294 
+  color: #325D67 
 }
 
 footer a:hover {
@@ -453,7 +497,7 @@ This is the ideal way to built websites because it is much easier to adapt from 
   }
 
   header {
-    font-size: 90%;
+    font-size: 100%;
   }
 
   input,

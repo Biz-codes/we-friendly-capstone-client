@@ -97,6 +97,13 @@ export default class AddBusiness extends Component {
     }
   }
 
+  validateCategory() {
+    const category = this.state.category.value;
+    if (category == "select") {
+      return <p>Category is required</p>;
+    }
+  }
+
   validateCity() {
     const city = this.state.city.value.trim();
     if (city.length === 0) {
@@ -107,6 +114,13 @@ export default class AddBusiness extends Component {
           City name must be at least 2 characters long
         </p>
       );
+    }
+  }
+
+  validateState() {
+    const state = this.state.state.value;
+    if (state == "select") {
+      return <p>State is required</p>;
     }
   }
 
@@ -207,7 +221,8 @@ export default class AddBusiness extends Component {
             onChange={(e) => this.changeCategory(e.target.value)}
             required
           >
-            <option value="restaurant-bar">restaurant/bar</option>
+            <option value="select" defaultValue>select a category</option>
+            <option value="restaurant/bar">restaurant/bar</option>
             <option value="shopping">shopping</option>
             <option value="hotel/accommodations">hotel/accommodations</option>
             <option value="service">service</option>
@@ -215,14 +230,15 @@ export default class AddBusiness extends Component {
             <option value="education">education</option>
             <option value="healthcare">healthcare</option>
           </select>
-          
+          {this.state.address.touched && (
+            <ValidationError message={this.validateCategory()} />
+          )}
           <label htmlFor="address">address:</label>
           <input
             type="text"
             id="address"
             name="address"
             onChange={(e) => this.changeAddress(e.target.value)}
-            required
           />
           
           <label htmlFor="city">city:</label>
@@ -233,16 +249,17 @@ export default class AddBusiness extends Component {
             onChange={(e) => this.changeCity(e.target.value)}
             required
           />
-          {this.state.state.touched && (
+          {this.state.city.touched && (
             <ValidationError message={this.validateCity()} />
           )}
-          <label htmlFor="state">state:</label>
+          <label htmlFor="state">state, district, or territory:</label>
           <select
             id="state"
             name="state"
             onChange={(e) => this.changeState(e.target.value)}
             required
           >
+            <option value="select" defaultValue>select a state</option>
             <option value="AK">AK</option>
             <option value="AL">AL</option>
             <option value="AR">AR</option>
@@ -300,7 +317,9 @@ export default class AddBusiness extends Component {
             <option value="PR">PR</option>
             <option value="VI">VI</option>
           </select>
-          
+          {this.state.state.touched && (
+            <ValidationError message={this.validateState()} />
+          )}
           <label htmlFor="zipcode">zipcode:</label>
           <input
             type="text"

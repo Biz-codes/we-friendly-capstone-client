@@ -132,7 +132,7 @@ export default class EditBus extends Component {
 
   componentDidMount() {
     let currentUser = TokenService.getUserId();
-    // console.log(currentUser);
+    console.log(currentUser);
 
     //if the user is not logged in, send him to landing page
     if (!TokenService.hasAuthToken()) {
@@ -375,11 +375,11 @@ export default class EditBus extends Component {
           <div className="buttons">
             <NavLink to="/me-friendly">
               <button>
-                <FontAwesomeIcon icon={faStepBackward} /> Cancel
+                <FontAwesomeIcon icon={faStepBackward} /> cancel
               </button>
             </NavLink>
             <button type="submit">
-              <FontAwesomeIcon icon={faSave} /> Save
+              <FontAwesomeIcon icon={faSave} /> save
             </button>
           </div>
           <input type="submit" className="hidden"></input>

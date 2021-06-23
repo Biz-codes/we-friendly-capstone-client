@@ -33,8 +33,8 @@ class App extends Component {
             <Route path="/me-friendly" component={MeFriendly} />
             <Route path="/add-business" component={AddBus} />
             <Route path="/edit-business" component={EditBus} />
-            <Route path="/add-review" component={AddRev} />
-            <Route path="/edit-review" component={EditRev} />
+            <Route path="/add-review/:business_id" component={AddRev} />
+            <Route path="/edit-review/:review_id" component={EditRev} />
           </Switch>
 
           <footer>

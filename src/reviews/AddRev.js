@@ -5,11 +5,13 @@ import TokenService from "../services/token-service";
 import ValidationError from "../ValidationError";
 import { faSave, faStepBackward } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { useParams } from 'react-router-dom';
 
 export default class AddReview extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      existingBusiness: [],
       friendly_for: {
         value: "",
         touched: false,
@@ -66,12 +68,29 @@ export default class AddReview extends Component {
   
   componentDidMount() {
     let currentUser = TokenService.getUserId();
-    // console.log(currentUser);
+    console.log(currentUser);
 
     //if the user is not logged in, send to landing page
     if (!TokenService.hasAuthToken()) {
       window.location = "/";
     }
+
+    let business_id = this.props.match.params.business_id;
+    // console.log(business_id)
+
+    fetch(`${config.API_ENDPOINT}/businesses/${business_id}`, {
+      headers: { "content-type": "application/json" },
+    })
+      .then((res) => res.json())
+      .then((resJson) => {
+        // console.log(resJson)
+        this.setState({
+          existingBusiness: resJson,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   addReview(e) {
@@ -87,16 +106,19 @@ export default class AddReview extends Component {
 
     let reviewer_id = TokenService.getUserId();
 
-    let { friendly_for, rating, review } = data;
+    let { business_id, friendly_for, rating, review } = data;
 
     let payload = {
       reviewer_id: reviewer_id,
+      business_id: business_id,
       friendly_for: friendly_for,
       rating: rating,
       review: review,
       
     };
     // console.log(payload)
+
+
 
     fetch(`${config.API_ENDPOINT}/reviews`, {
       method: "POST",
@@ -105,7 +127,8 @@ export default class AddReview extends Component {
     })
       .then((res) => res.json())
       .then((resJson) => {
-        window.location = "/businesses";
+        // console.log(resJson)
+        window.location = "/me-friendly";
       })
       .catch((err) => {
         console.log(err);
@@ -113,10 +136,11 @@ export default class AddReview extends Component {
   }
 
   render() {
+    // console.log(this.state.existingBusiness)
     return (
       <div className="add-review">
         <form className="add-review-form" onSubmit={this.addReview}>
-          <h3>Write a review of (business_name), (business.zipcode)</h3>
+          <h3>Write a review of {this.state.existingBusiness.name}, {this.state.existingBusiness.zipcode}</h3>
           <label htmlFor="friendly_for">-friendly identity:</label>
           <select
             id="friendly_for"
@@ -124,9 +148,9 @@ export default class AddReview extends Component {
             onChange={(e) => this.changeFriendlyFor(e.target.value)}
             required
           >
-            <option value="POC">Black, Asian/Pacific Islander, Latinx, and Indigenous persons</option>
-            <option value="disabled-persons">Disabled persons</option>
-            <option value="migrants-immigrants">Migrants/Immigrants</option>
+            <option value="Black, Asian/Pacific Islander, Latinx, and Indigenous persons">Black, Asian/Pacific Islander, Latinx, and Indigenous persons</option>
+            <option value="Disabled persons">Disabled persons</option>
+            <option value="Migrants/Immigrants">Migrants/Immigrants</option>
             <option value="LGBTQIA+">LGBTQIA+</option>
             <option value="women">Women</option>
           </select>
@@ -162,6 +186,7 @@ export default class AddReview extends Component {
               <FontAwesomeIcon icon={faSave} /> Save
             </button>
           </div>
+          <input type="hidden" name="business_id" defaultValue={this.state.existingBusiness.id}></input>
           <input type="submit" className="hidden"></input>
         </form>
       </div>

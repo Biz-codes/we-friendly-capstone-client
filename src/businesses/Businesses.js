@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Nav from "../Nav";
 import config from "../config";
 import TokenService from "../services/token-service";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faParagraph } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchBus from "./SearchBus";
 
@@ -18,7 +18,7 @@ class Businesses extends Component {
 
   componentDidMount() {
     let currentUser = TokenService.getUserId();
-    // console.log(currentUser)
+    console.log(currentUser)
 
     //if the user is not logged in, send him to landing page
     if (!TokenService.hasAuthToken()) {
@@ -69,7 +69,7 @@ class Businesses extends Component {
     let searchZip = data.zipcode;
     let searchState = data.state;
     let searchCategory = data.category;
-    console.log(businesses)
+    // console.log(businesses)
     // console.log(searchName, searchZip, searchState, searchCategory)
 
     //by default select all the results
@@ -140,7 +140,7 @@ class Businesses extends Component {
     // console.log(outputCategory)
 
     if (filterSelected == 0) {
-      outputCategory = []
+      outputCategory = null
     }
 
     // console.log(outputCategory);
@@ -152,6 +152,7 @@ class Businesses extends Component {
 
   render() {
     const showBusinesses = this.state.results.map((business, key) => {
+      let addReviewUrl = `/add-review/${business.id}`
       // if (this.state.results == undefined) {
       //   return (
       //     <p>Sorry, we couldn't find anything. Try different search terms, or click [+ add a business]</p>
@@ -166,21 +167,12 @@ class Businesses extends Component {
             {business.city}, {business.state} {business.zipcode}
           </p>
           <p>{business.website}</p>
-          <p>reviews</p>
           <div className="buttons">
-            <NavLink to={{ pathname: "/add-review", business_id: business.id }}>
-              <button>write a review</button>
-            </NavLink>
-            <form className="remember" onSubmit={this.remember}>
-              <input
-                type="hidden"
-                name="review_id"
-                defaultValue={business.id}
-              ></input>
-              <button type="submit" className="remember">
-                remember
+            <NavLink to={{ pathname: addReviewUrl }}>
+              <button>
+                <FontAwesomeIcon icon = {faParagraph} /> write a review
               </button>
-            </form>
+            </NavLink>
           </div>
         </div>
       );
@@ -213,7 +205,6 @@ class Businesses extends Component {
                 <FontAwesomeIcon icon={faPlus} /> add a business
               </button>
             </NavLink>
-            {/* <button>clear search</button> */}
           </div>
         </div>
 

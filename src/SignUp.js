@@ -127,7 +127,7 @@ export default class SignUp extends Component {
       .then((response) => {
         TokenService.saveAuthToken(response.authToken);
         TokenService.saveUserId(response.id);
-        window.location = "/dashboard";
+        window.location = "/reviews";
       })
 
       .catch((res) => {
@@ -148,7 +148,7 @@ export default class SignUp extends Component {
             about the lived experiences of other folx. Basically, I agree to contribute
             to making we-friendly a safe space.
           </p>
-          <label for="agree"></label>
+          <label htmlFor="agree"></label>
           <input type="checkbox" required/>
           <label htmlFor="name">name:</label>
           <input
@@ -210,12 +210,14 @@ export default class SignUp extends Component {
           <button type="submit" disabled={this.state.submitButtonDisabled}>
             <FontAwesomeIcon icon={faDoorOpen} /> Submit
           </button> 
+          
           </div>
           <NavLink to="/users/login">Already have an account?</NavLink>
+          <div>
+            <input type="submit" className="hidden"></input>
+          </div>
         </form>
-        <div>
-          <input type="submit" className="hidden"></input>
-        </div>
+        
       </div>
     );
   }

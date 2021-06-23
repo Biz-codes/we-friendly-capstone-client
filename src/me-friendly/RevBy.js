@@ -2,27 +2,75 @@ import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 import config from "../config";
 import TokenService from "../services/token-service";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import RatingStars from '../reviews/RatingStars'
 
 class RevBy extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      businesses: [],
       reviews: [],
+      myReviews: [],
+      // currentUser: 0,
     };
   }
 
   componentDidMount() {
     let currentUser = TokenService.getUserId();
     // console.log(currentUser)
+    // this.setState({
+    //   currentUser: currentUser
+    // })
 
     //if the user is not logged in, send him to landing page
     if (!TokenService.hasAuthToken()) {
       window.location = "/";
     }
 
+    // let reviewsUrl = `${config.API_ENDPOINT}/reviews`;
+
+    // fetch(reviewsUrl)
+    //   .then((reviews) => reviews.json())
+    //   .then((reviews) => {
+    //     return reviews.sort((a, b) => {
+    //       let result = 0;
+    //       if (a.name > b.name) return 1;
+    //       if (a.name < b.name) return -1;
+    //       return result;
+    //     });
+    //   })
+    //   .then((reviews) => {
+    //     console.log(reviews)
+    //     this.setState({
+    //       reviews: reviews,
+    //     });
+    //   })
+
+    //   .catch((error) => this.setState({ error }));
+
+
+
+
+    //   let reviews = this.state.reviews;
+    // // // let reviewer = this.state.currentUser;
+    // console.log(reviews)
+    // // console.log(reviewer)
+
+    // let response = reviews;
+    // let myReviews = []
+
+    // for (let i=0; i<response.length; i++) {
+    //   if (currentUser == response[i].reviewer_id) {
+    //     myReviews.push(response[i])
+    //   } else {myReviews = []
+    // }
+    // }
+
+    // console.log(myReviews)
+    // this.setState({
+    //   myReviews: myReviews
+    // })
     let reviewsByMeUrl = `${config.API_ENDPOINT}/reviews/written-by-me/${currentUser}`;
 
     fetch(reviewsByMeUrl)
@@ -30,12 +78,13 @@ class RevBy extends Component {
       .then((reviews) => {
         return reviews.sort((a, b) => {
           let result = 0;
-          if (a.date_modified > b.date_modified) return 1;
-          if (a.date_modified < b.date_modified) return -1;
+          if (a.name > b.name) return 1;
+          if (a.name < b.name) return -1;
           return result;
         });
       })
       .then((reviews) => {
+        console.log(reviews)
         this.setState({
           reviews: reviews,
         });
@@ -43,17 +92,10 @@ class RevBy extends Component {
 
       .catch((error) => this.setState({ error }));
     
-    // let business_id = review.
-    // let getBusinessByIdUrl = `${config.API_ENDPOINT}/businesses/${business_id}`
-
-    // fetch(getBusinessByIdUrl)
-    //   .then((business) => business.json())
-    //   .then((business) => {
-    //     this.setState({
-    //       business: business
-    //     })
-    //   })
+  
   }
+
+
     deleteReview(e) {
         e.preventDefault();
      
@@ -80,15 +122,20 @@ class RevBy extends Component {
         });
       }
 
+
+
   render() {
+
     const showReviewsByMe = this.state.reviews.map((review, key) => {
       return (
         <div className="review-item" key={key}>
         {/* I need to figure out how to take the business_id and use it to look up and display the corresponding name and zipcode. I also want to utilize this is sorting and filtering.*/}
-          <h3>{review.business_id.name}                        {review.rating}</h3>
-          <p>{review.friendly_for} -friendly        {review.business_id.zipcode}</p>
+          <h3>{review.name} </h3>
+          <p>({review.category}, {review.zipcode})</p>
+          <p><RatingStars rating={review.rating} /></p>
+          <p>{review.friendly_for} -friendly </p>
           <p>{review.review}</p>
-          <p>{review.reviewer_id.username}                {review.date_modified.slice(0, 10)}</p>
+          <p>{review.date_modified.slice(0, 10)}</p>
           <div className="buttons">
             <form className="delete" onSubmit={this.deleteReview}>
                 <input
@@ -101,7 +148,9 @@ class RevBy extends Component {
                 </button>
             </form>
             <NavLink to={{ pathname: "/edit-review", review_id: review.id }}>
-              <button>edit</button>
+              <button>
+                <FontAwesomeIcon icon = {faPencilAlt} /> edit
+              </button>
             </NavLink>
           </div>
         </div>
@@ -110,7 +159,7 @@ class RevBy extends Component {
 
     return (
       <div className="reviews-by-me">
-        <h3>reviews by me</h3>
+        <h3 className="my-rev-heading">reviews by me</h3>
         <div className="reviews">
           <div className="review-items">{showReviewsByMe}</div>
           <footer></footer>
