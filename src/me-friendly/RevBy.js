@@ -36,7 +36,7 @@ class RevBy extends Component {
         });
       })
       .then((reviews) => {
-        console.log(reviews)
+        // console.log(reviews)
         this.setState({
           reviews: reviews,
         });
@@ -62,7 +62,6 @@ class RevBy extends Component {
         // console.log(data);
     
         let { review_id } = data;
-        // console.log(project_id);
     
         fetch(`${config.API_ENDPOINT}/reviews/${review_id}`, {
           method: "DELETE",

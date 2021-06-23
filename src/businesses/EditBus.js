@@ -182,7 +182,6 @@ export default class EditBus extends Component {
   }
 
   updateBusiness = (event) => {
-    // console.log('hello there')
     event.preventDefault();
     const data = {};
 

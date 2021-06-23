@@ -92,7 +92,7 @@ export default class EditRev extends Component {
     })
       .then((res) => res.json())
       .then((resJson) => {
-        console.log(resJson)
+        // console.log(resJson)
         this.setState({
           existingReview: resJson,
         });
@@ -104,7 +104,6 @@ export default class EditRev extends Component {
   }
 
   updateReview = (event) => {
-    // console.log('hello there')
     event.preventDefault();
     const data = {};
 
@@ -136,7 +135,7 @@ export default class EditRev extends Component {
     })
       .then((res) => res.json())
       .then((resJson) => {
-        console.log(resJson)
+        // console.log(resJson)
         window.location = "/me-friendly";
       })
       .catch((err) => {
@@ -145,7 +144,7 @@ export default class EditRev extends Component {
   };
 
   render() {
-    console.log(this.state.existingReview)
+    // console.log(this.state.existingReview)
     return (
       <div className="edit-review">
         <form className="edit-review-form" onSubmit={this.updateReview}>
